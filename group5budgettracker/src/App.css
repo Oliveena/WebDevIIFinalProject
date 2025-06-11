@@ -6,11 +6,12 @@
 
 .App {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: #f0f2f5;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   padding: 2rem;
   text-align: center;
@@ -96,4 +97,12 @@ button:hover {
   object-fit: cover;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.footer {
+  align-items: center;
+  padding: 1rem;
+  margin: 2rem 0 0 0;
+  border-top: 1px solid #21a1f1;
+  flex-shrink: 0;
 }

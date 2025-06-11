@@ -9,7 +9,7 @@
     - Evan:
     - all 3: GitHub setup, Figma setup, role distribution, inspiration research
 3) Any issues obstacles/challenges/need-help? 
-    - Ana: nil
+    - Ana: Tailwind installation
     - Dylan: 
     - Evan:
 
