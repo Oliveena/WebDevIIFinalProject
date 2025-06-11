@@ -19,12 +19,12 @@
 
 ### Day 2 <ins>2025-06-11</ins>
 
-1) Yesterday: [...]
+1) Yesterday: Basic structure + routing done, Figma and GitHub set-up done
 2) Today: 
-    - Ana: [...]
+    - Ana: Figma sketches
     - Dylan: [...]
     - Evan:[...]
-    - all 3: [...]
+    - all 3: Trello user stories set-up
 3) Any issues obstacles/challenges/need-help? 
     - Ana: [...]
     - Dylan: [...]

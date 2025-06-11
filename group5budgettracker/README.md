@@ -17,6 +17,13 @@ https://www.spendee.com/
 * GitHub for versioning
 * Daily scrum for workflow
 
+==Potential tools==
+Graphs: 
+https://api.adviceslip.com/
+https://recharts.org/en-US/guide/getting-started 
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
