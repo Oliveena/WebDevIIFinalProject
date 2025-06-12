@@ -5,7 +5,7 @@
 1) Yesterday: N/A 
 2) Today: 
     - Ana: basic page routing
-    - Dylan: 
+    - Dylan: research ui inspiration
     - Evan:
     - all 3: GitHub setup, Figma setup, role distribution, inspiration research
 3) Any issues obstacles/challenges/need-help? 
@@ -22,7 +22,7 @@
 1) Yesterday: Basic structure + routing done, Figma and GitHub set-up done
 2) Today: 
     - Ana: Figma sketches
-    - Dylan: [...]
+    - Dylan: Figma sketches (Predetermined Budget)
     - Evan:[...]
     - all 3: Trello user stories set-up
 3) Any issues obstacles/challenges/need-help? 
