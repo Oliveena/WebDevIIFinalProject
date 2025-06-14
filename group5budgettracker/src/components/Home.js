@@ -1,6 +1,11 @@
+import Hero from "./Hero";
+import Features from "./Features";
+
 export default function Home() {
-    // homepage content
-    return(
-        <h2>Hi Hello This is the Home Page</h2>
-    )
+  return (
+    <div>
+        <Hero />
+        <Features />
+    </div>
+  );
 }
