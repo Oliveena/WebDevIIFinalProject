@@ -4,7 +4,7 @@
 ### Day 1 <ins>2025-06-10</ins>
 1) Yesterday: N/A 
 2) Today: 
-    - Ana: basic page routing
+    - Ana: basic page routing, header, footer
     - Dylan: research ui inspiration
     - Evan:
     - all 3: GitHub setup, Figma setup, role distribution, inspiration research
@@ -19,7 +19,7 @@
 
 ### Day 2 <ins>2025-06-11</ins>
 
-1) Yesterday: Basic structure + routing done, Figma and GitHub set-up done
+1) Yesterday: Figma finished. Basic page structure created.
 2) Today: 
     - Ana: Figma sketches
     - Dylan: Figma sketches (Predetermined Budget)
@@ -34,7 +34,7 @@
 
     1) Yesterday: Basic structure + routing done, Figma and GitHub set-up done
 2) Today: 
-    - Ana: testing, second opinion obtained from React dev for structure planning
+    - Ana: graphs, table, testing, second opinion obtained from React dev for structure planning
     - Dylan: Pie chart
     - Evan: header, buttons imported from MaterialUI + testing
     - all 3: ...
@@ -45,9 +45,9 @@
 
     ### Day 4 <ins>2025-06-13</ins>
 
-    1) Yesterday: Basic structure + routing done, Figma and GitHub set-up done
+    1) Yesterday: Individual work progresses.
     2) Today: 
-    - Ana: Figma sketches
+    - Ana: (working on an unrelated React project)
     - Dylan: ...
     - Evan: MyHero, FeatureSection, Footer
     - all 3: ...
@@ -58,11 +58,11 @@
 
         ### Day 5 <ins>2025-06-14</ins>
 
-    1) Yesterday: Pages visible, some graphs visible, mock data in place, home page requires testing 
+    1) Yesterday: Pages visible, some graphs visible, mock data in place, home page requires testing. Agreement for systematic scrum q9.30am DIE for improved team cohesion.
     2) Today: 
-    - Ana: combine budget + expenses graph, better mock data structure 
+    - Ana: finalize components + page for Actual Expenses, implement forms, begin implementing Tailwind
     - Dylan: ...
-    - Evan: MyHero, FeatureSection 
+    - Evan: Footer, MyHero, FeatureSection 
     - all 3: ...
     3) Any issues obstacles/challenges/need-help? 
     - Ana: testing
