@@ -9,13 +9,16 @@ WebDevIIFinalProject
 │  └─ workspace.xml
 ├─ DailyScrum.md
 ├─ group5budgettracker
+│  ├─ build
+│  │  ├─ favicon.ico
+│  │  ├─ manifest.json
+│  │  └─ robots.txt
 │  ├─ package-lock.json
 │  ├─ package.json
+│  ├─ postcss.config.js
 │  ├─ public
 │  │  ├─ favicon.ico
 │  │  ├─ index.html
-│  │  ├─ logo192.png
-│  │  ├─ logo512.png
 │  │  ├─ manifest.json
 │  │  └─ robots.txt
 │  ├─ README.md
@@ -722,25 +725,28 @@ WebDevIIFinalProject
 │  │  ├─ types.d.ts
 │  │  ├─ vitest.config.mts
 │  │  └─ webpack.config.js
-│  └─ src
-│     ├─ App.css
-│     ├─ App.js
-│     ├─ App.test.js
-│     ├─ components
-│     │  ├─ ActualBudget.js
-│     │  ├─ Footer.js
-│     │  ├─ Home.js
-│     │  ├─ Navbar.js
-│     │  ├─ SpendingTracker.js
-│     │  └─ spendingTrackerComponents
-│     │     ├─ ListOfExpenses.js
-│     │     ├─ SpendingGraph.js
-│     │     └─ useChartData.js
-│     ├─ index.css
-│     ├─ index.js
-│     ├─ logo.svg
-│     ├─ reportWebVitals.js
-│     └─ setupTests.js
+│  ├─ src
+│  │  ├─ App.js
+│  │  ├─ components
+│  │  │  ├─ ActualBudget.js
+│  │  │  ├─ Features.js
+│  │  │  ├─ Footer.js
+│  │  │  ├─ Hero.js
+│  │  │  ├─ Home.js
+│  │  │  ├─ Login.js
+│  │  │  ├─ Navbar.js
+│  │  │  ├─ SpendingTracker.js
+│  │  │  └─ spendingTrackerComponents
+│  │  │     ├─ AddExpenseForm.js
+│  │  │     ├─ CategorySelect.js
+│  │  │     ├─ ListOfExpenses.js
+│  │  │     ├─ SpendingGraph.js
+│  │  │     └─ useChartData.js
+│  │  ├─ constants
+│  │  │  └─ CategoryConfig.js
+│  │  ├─ index.css
+│  │  └─ index.js
+│  └─ tailwind.config.js
 └─ README.md
 
 ```

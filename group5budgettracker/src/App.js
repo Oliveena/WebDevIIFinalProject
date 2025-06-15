@@ -1,23 +1,39 @@
-import { Link, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from './components/Home';
 import SpendingTracker from './components/SpendingTracker';
 import ActualBudget from './components/ActualBudget';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
+// MaterialUI date adapter
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+
 function App() {
   return (
+    <div className="min-h-screen flex flex-col">
     <div className="App">
       <header className="App-header">
         <Navbar />
       </header>
-      <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/spending" element={<SpendingTracker />}></Route>
-        <Route path="/budget" element={<ActualBudget />}></Route>
-      </Routes>
-      <Footer />
 
+      <Routes>
+        <Route path="/" element={<Home />} />
+        
+        <Route
+          path="/spending"
+          element={
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <SpendingTracker />
+            </LocalizationProvider>
+          }
+        />
+
+        <Route path="/budget" element={<ActualBudget />} />
+      </Routes>
+
+      <Footer />
+    </div>
     </div>
   );
 }

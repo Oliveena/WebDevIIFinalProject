@@ -16,6 +16,8 @@ https://www.spendee.com/
 * Trello for kanban
 * GitHub for versioning
 * Daily scrum for workflow
+* Lucid React for components (icons)
+* MaterialUI for components (table)
 
 ==Potential tools==
 Graphs: 

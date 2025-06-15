@@ -33,7 +33,7 @@
     ### Day 3 <ins>2025-06-12</ins>
 
     1) Yesterday: Basic structure + routing done, Figma and GitHub set-up done
-2) Today: 
+    2) Today: 
     - Ana: graphs, table, testing, second opinion obtained from React dev for structure planning
     - Dylan: Pie chart
     - Evan: header, buttons imported from MaterialUI + testing
@@ -49,7 +49,7 @@
     2) Today: 
     - Ana: (working on an unrelated React project)
     - Dylan: ...
-    - Evan: MyHero, FeatureSection, Footer
+    - Evan: MyHero, FeatureSection, Features
     - all 3: ...
     3) Any issues obstacles/challenges/need-help? 
     - Ana: testing
@@ -62,7 +62,7 @@
     2) Today: 
     - Ana: finalize components + page for Actual Expenses, implement forms, begin implementing Tailwind
     - Dylan: ...
-    - Evan: Footer, MyHero, FeatureSection 
+    - Evan: Features, MyHero, FeatureSection 
     - all 3: ...
     3) Any issues obstacles/challenges/need-help? 
     - Ana: testing
