@@ -12,7 +12,11 @@ export default function SpendingTracker() {
   { name: 'Lunch', amount: 12, category: 'Food', date: '2025-06-03' },
   { name: 'Dinner Out', amount: 45, category: 'Food', date: '2025-06-04' },
   { name: 'Cinema Snacks', amount: 15, category: 'Food', date: '2025-06-05' },
+  { name: 'Coffee', amount: 3, category: 'Food', date: '2025-06-11'},
+  { name: 'Birthday Cake', amount: 60, category: 'Food', date: '2025-06-12'},
+  { name: 'Coffee', amount: 3, category: 'Food', date: '2025-06-14'},
   { name: 'Onigiri', amount: 15, category: 'Food', date: '2025-06-15' },
+
 
   // Clothes - June
   { name: 'T-shirt', amount: 25, category: 'Clothes', date: '2025-06-01' },

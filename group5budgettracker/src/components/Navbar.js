@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Wallet,Menu, X } from "lucide-react";
+import { Wallet, Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,17 +14,19 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex items-center">
             <div className="bg-primary-600 p-2 rounded-lg">
-                <Wallet className="h-8 w-8 text-white" />
+              <Wallet className="h-8 w-8 text-white" />
             </div>
-            <span className="text-accent-500 text-2xl font-bold">Ledgerly</span>
+            <span className="text-accent-500 text-2xl font-bold ml-2">Ledgerly</span>
           </div>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex space-x-6">
+          <div className="hidden md:flex space-x-6 items-center">
             <Link to="/" className="hover:text-accent-500 transition">Home</Link>
             <Link to="/dashboard" className="hover:text-accent-500 transition">Dashboard</Link>
             <Link to="/spending" className="hover:text-accent-500 transition">Spending</Link>
             <Link to="/budget" className="hover:text-accent-500 transition">Budget</Link>
+            <Link to="/login" className="hover:text-accent-500 transition">Login</Link>
+            <Link to="/register" className="hover:text-accent-500 transition">Register</Link>
           </div>
 
           {/* Mobile menu button */}
@@ -39,10 +41,12 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden bg-primary-600 px-4 pb-4 space-y-2">
-          <Link to="/" className="hover:text-accent-500 transition">Home</Link>
-          <Link to="/dashboard" className="hover:text-accent-500 transition">Dashboard</Link>
-          <Link to="/spending" className="hover:text-accent-500 transition">Spending</Link>
-          <Link to="/budget" className="hover:text-accent-500 transition">Budget</Link>
+          <Link to="/" className="hover:text-accent-500 transition block">Home</Link>
+          <Link to="/dashboard" className="hover:text-accent-500 transition block">Dashboard</Link>
+          <Link to="/spending" className="hover:text-accent-500 transition block">Spending</Link>
+          <Link to="/budget" className="hover:text-accent-500 transition block">Budget</Link>
+          <Link to="/login" className="hover:text-accent-500 transition block">Login</Link>
+          <Link to="/register" className="hover:text-accent-500 transition block">Register</Link>
         </div>
       )}
     </nav>
