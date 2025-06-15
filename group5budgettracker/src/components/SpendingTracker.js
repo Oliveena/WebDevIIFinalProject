@@ -3,6 +3,8 @@ import SpendingGraph from './spendingTrackerComponents/SpendingGraph';
 import AddExpenseForm from './spendingTrackerComponents/AddExpenseForm';
 import ListOfExpenses from './spendingTrackerComponents/ListOfExpenses';
 import { categoryColors, categoryIcons } from '../constants/CategoryConfig';
+import { useNavigate } from 'react-router-dom';
+import { FaChartLine, FaArrowRight } from 'react-icons/fa';
 
 export default function SpendingTracker() {
   const [expenses, setExpenses] = useState([
@@ -107,6 +109,13 @@ export default function SpendingTracker() {
     setExpenses(prev => [...prev, newExpense]);
   };
 
+  // for accessing Budget page from Spending page
+const navigate = useNavigate();
+
+  // toggle for budget data being compared to expenses data
+  const [showBudget, setShowBudget] = useState(false);
+
+
   return (
     <section className="py-20 lg:py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -122,9 +131,31 @@ export default function SpendingTracker() {
           </p>
         </div>
 
+<div className="mb-6 flex items-center gap-4 justify-center">
+  {/* Compare with Budget Button */}
+  <button
+    onClick={() => setShowBudget(prev => !prev)}
+    className="flex items-center gap-2 px-4 py-2 text-white font-semibold rounded-md"
+    style={{ backgroundColor: showBudget ? '#2563eb' : '#6b7280' }}
+  >
+    <FaChartLine />
+    {showBudget ? 'Hide Budget Comparison' : 'Compare with Budget'}
+  </button>
+
+  {/* Manage Budget Button */}
+  <button
+    onClick={() => navigate('/budget')}
+    className="flex items-center gap-2 px-4 py-2 text-primary-600 border border-primary-600 font-semibold rounded-md hover:bg-primary-50"
+  >
+    Manage Budget
+    <FaArrowRight />
+  </button>
+</div>
+
+
         {/* Graph + Dropdown */}
         <div className="mb-12">
-          <SpendingGraph expenses={expenses} />
+          <SpendingGraph expenses={expenses} showBudget={showBudget} />
         </div>
 
         {/* CTA: Add Expense */}

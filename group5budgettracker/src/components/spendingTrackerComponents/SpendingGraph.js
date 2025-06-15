@@ -6,7 +6,7 @@ import { categoryColors, categoryIcons } from '../../constants/CategoryConfig';
 
 const timeRanges = ['1 Week', '1 Month', '3 Months', 'All'];
 
-export default function SpendingGraph({ expenses }) {
+export default function SpendingGraph({ expenses, showBudget }) {
   const [selectedCategory, setSelectedCategory] = useState('Food');
   const [selectedRange, setSelectedRange] = useState('1 Week');
 
@@ -14,6 +14,15 @@ export default function SpendingGraph({ expenses }) {
 
   if (loading) return <p>Loading chart...</p>;
   if (error) return <p>Error: {error}</p>;
+
+  // TODO: connect to budget data
+const mockBudgets = {
+  Food: 300,
+  Clothes: 200,
+  Transport: 250,
+  Rent: 1200,
+  Utilities: 150,
+};
 
   return (
     <div className="container my-4">
@@ -43,19 +52,41 @@ export default function SpendingGraph({ expenses }) {
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />
-          <Tooltip />
+          <Tooltip
+  formatter={(value, name) => {
+    if (name === 'Planned Budget') {
+      return [`$${value}`, 'Planned Budget (gray dashed)'];
+    }
+    return [`$${value}`, name];
+  }}
+/>
           <Legend />
-          <Line
-            type="monotone"
-            dataKey="value"
-            stroke={categoryColors[selectedCategory]}
-            name="Actual Expenses"
-            dot={false}
-          />
+         <Line
+  type="monotone"
+  dataKey="value"
+  stroke={categoryColors[selectedCategory]}
+  name="Actual Expenses"
+  dot={false}
+/>
+
+{showBudget && (
+  <Line
+    type="monotone"
+    dataKey={() => mockBudgets[selectedCategory]} // Flat line
+    stroke="#8884d8"
+    name="Planned Budget"
+    strokeDasharray="5 5"
+    dot={false}
+  />
+)}
         </LineChart>
       </ResponsiveContainer>
+      {showBudget && (
+  <p style={{ textAlign: 'center', fontSize: '0.9rem', color: '#6b7280', marginTop: '0.5rem' }}>
+    <span style={{ borderBottom: '1px dashed #8884d8', marginRight: 6 }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    Gray dashed line represents your budget for the selected category.
+  </p>
+)}
     </div>
   );
 }
-
-{/*TODO: add option for displaying expenses AND budget on graph*/}
