@@ -6,7 +6,8 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Features from './components/Features';     
 import Login from './components/Login';            
-import Register from './components/Register';     
+import Register from './components/Register';   
+import Dashboard from './components/Dashboard';   
 
 // MaterialUI date adapter
 import { LocalizationProvider } from '@mui/x-date-pickers';
@@ -35,6 +36,7 @@ function App() {
             }
           />
           <Route path="/budget" element={<ActualBudget />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
 
         <Footer />
