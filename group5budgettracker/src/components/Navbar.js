@@ -45,6 +45,7 @@ export default function Navbar() {
           <Link to="/dashboard" className="hover:text-accent-500 transition block">Dashboard</Link>
           <Link to="/spending" className="hover:text-accent-500 transition block">Spending</Link>
           <Link to="/budget" className="hover:text-accent-500 transition block">Budget</Link>
+          <Link to="/planner" className="hover:text-accent-500 transition block">Planner</Link>
           <Link to="/login" className="hover:text-accent-500 transition block">Login</Link>
           <Link to="/register" className="hover:text-accent-500 transition block">Register</Link>
         </div>
