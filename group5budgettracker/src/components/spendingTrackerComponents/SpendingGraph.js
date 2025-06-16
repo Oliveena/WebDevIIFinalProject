@@ -65,8 +65,9 @@ const mockBudgets = {
   type="monotone"
   dataKey="value"
   stroke={categoryColors[selectedCategory]}
+  strokeWidth={3}
+  dot={{ r: 7 }} 
   name="Actual Expenses"
-  dot={false}
 />
 
 {showBudget && (
