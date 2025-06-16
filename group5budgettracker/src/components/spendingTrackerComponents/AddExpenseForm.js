@@ -118,7 +118,6 @@ export default function AddExpenseForm({ onAdd }) {
       </TextField>
 
       <DateTimePicker
-        label="Date"
         value={formData.date}
         onChange={handleChange('date')}
         slotProps={{

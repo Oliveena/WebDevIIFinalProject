@@ -6,6 +6,8 @@ export default function useChartData(expenses, selectedCategory, selectedRange) 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // mock budgets 
+  // TODO: link Budget values with Spending 
   const budgets = {
     Food: 300,
     Clothes: 200,
@@ -16,6 +18,7 @@ export default function useChartData(expenses, selectedCategory, selectedRange) 
 
   const getStartDate = () => {
     const now = dayjs();
+    // declaring time periods for graph display
     switch (selectedRange) {
       case '1 Day': return now.subtract(1, 'day');
       case '1 Week': return now.subtract(1, 'week');
@@ -25,9 +28,12 @@ export default function useChartData(expenses, selectedCategory, selectedRange) 
     }
   };
 
+  // calculating length of selected time periods 
   useEffect(() => {
+    // declaring start date
     const startDate = getStartDate();
 
+    // initial states: loading with no errors 
     try {
       setLoading(true);
       setError(null);
@@ -35,7 +41,8 @@ export default function useChartData(expenses, selectedCategory, selectedRange) 
       // Filter expenses by date and exclude future dates
       const filtered = expenses.filter(exp => {
         const expDate = dayjs(exp.date);
-        return expDate.isAfter(startDate) && expDate.isBefore(dayjs().add(1, 'day')); // excludes future dates
+        // excluding future dates
+        return expDate.isAfter(startDate) && expDate.isBefore(dayjs().add(1, 'day'));
       });
 
       // Decide which categories to include
@@ -65,6 +72,31 @@ export default function useChartData(expenses, selectedCategory, selectedRange) 
           return { name: date, value: runningTotal };
         });
       });
+
+      // Add "Everything" by merging all categories
+if (selectedCategory === 'Everything') {
+  const allDates = new Set();
+  Object.values(groupedByCategory).forEach(arr => {
+    arr.forEach(item => allDates.add(item.name));
+  });
+
+  const sortedAllDates = Array.from(allDates).sort((a, b) => dayjs(a).isBefore(dayjs(b)) ? -1 : 1);
+
+  let runningTotal = 0;
+  // merging all data from all categories 
+  const mergedData = sortedAllDates.map(date => {
+    const dailySum = Object.values(groupedByCategory).reduce((sum, categoryData) => {
+      const entry = categoryData.find(item => item.name === date);
+      return sum + (entry ? entry.value - (categoryData.find((_, i) => i === categoryData.findIndex(d => d.name === date) - 1)?.value || 0) : 0);
+    }, 0);
+
+    runningTotal += dailySum;
+    return { name: date, value: runningTotal };
+  });
+
+  groupedByCategory['Everything'] = mergedData;
+}
+
 
       setData(groupedByCategory);
       setLoading(false);
