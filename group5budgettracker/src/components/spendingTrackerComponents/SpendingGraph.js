@@ -6,15 +6,6 @@ import { categoryColors, categoryIcons } from '../../constants/CategoryConfig';
 
 const timeRanges = ['1 Week', '1 Month', '3 Months', 'All'];
 
-export default function SpendingGraph({ expenses, showBudget }) {
-  const [selectedCategory, setSelectedCategory] = useState('Food');
-  const [selectedRange, setSelectedRange] = useState('1 Week');
-
-  const { data: chartData, loading, error } = useChartData(expenses, selectedCategory, selectedRange);
-
-  if (loading) return <p>Loading chart...</p>;
-  if (error) return <p>Error: {error}</p>;
-
   // TODO: connect to budget data
 const mockBudgets = {
   Food: 300,
@@ -24,9 +15,42 @@ const mockBudgets = {
   Utilities: 150,
 };
 
+export default function SpendingGraph({ expenses, showBudget }) {
+  const [selectedCategory, setSelectedCategory] = useState('Food');
+  const [selectedRange, setSelectedRange] = useState('1 Week');
+
+const { data: chartData, loading, error } = useChartData(expenses, selectedCategory, selectedRange);
+const totalSpent = (chartData[selectedCategory] || []).at(-1)?.value || 0;
+const budget = selectedCategory !== 'Everything' ? mockBudgets[selectedCategory] : null;
+
+const status =
+  budget !== null
+    ? totalSpent > budget
+      ? 'above'
+      : 'below'
+    : null;
+
+const budgetMessage =
+  selectedCategory === 'Everything'
+    ? `Your total spending for ${selectedRange} across all categories is $${totalSpent.toFixed(2)}.`
+    : `Your expenses for ${selectedRange} in category ${selectedCategory} is $${totalSpent.toFixed(
+        2
+      )}. You're ${status} budget.`;
+
+  
+  if (loading) return <p>Loading chart...</p>;
+  if (error) return <p>Error: {error}</p>;
+
   return (
     <div className="container my-4">
       <div className="mb-3 d-flex align-items-center gap-3">
+        {/* Summary message */}
+      <div className="text-center text-lg font-medium text-gray-700 mb-6">
+        {budgetMessage}
+      </div>
+
+
+    {/* Graph and its components*/}
         <label className="fw-semibold p-5" style={{ minWidth: 70 }}>Category:</label>
         <CategorySelect selectedCategory={selectedCategory} onChange={setSelectedCategory} />
 
