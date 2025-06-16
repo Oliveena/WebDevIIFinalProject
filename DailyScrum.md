@@ -69,6 +69,33 @@
     - Dylan: testing
     - Evan: testing
 
+    ### Day 6 <ins>2025-06-15</ins>
+
+    1) Yesterday: Pages visible, some graphs visible, mock data in place, home page requires testing. Agreement for systematic scrum q9.30am DIE for improved team cohesion.
+    2) Today: 
+    - Ana: finalize components + page for Actual Expenses, Login/Registger mock UI
+    - Evan: Features, MyHero, FeatureSection 
+    - all 3: ...
+    3) Any issues obstacles/challenges/need-help? 
+    - Ana: testing
+    - Dylan: testing
+    - Evan: testing
+
+    ### Day 7 <ins>2025-06-16</ins>
+
+    1) Yesterday: Home and Spending Pages functional. Login/Registration mock done.
+    2) Today: 
+    - Ana: minor UI edits for Spending. Mock Dashboard.
+    - Evan: Login/Registration JSON mock server
+    - all 3: ...
+    3) Any issues obstacles/challenges/need-help? 
+    - Ana: testing
+    - Dylan: testing
+    - Evan: testing
+
+
+
+
 
 
 
