@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Tooltip as ChartTooltip, Legend } from "recharts";
 import { PieChart, DollarSign, Home, Utensils, Car, PartyPopper, Info, ArrowRightCircle, Save, RefreshCw } from "lucide-react";
 
@@ -68,7 +68,11 @@ const BudgetPlanner = () => {
   };
 
   const handleSave = () => {
-    localStorage.setItem("budgetData", JSON.stringify({ totalIncome, categories }));
+    const saveData = {
+      totalIncome,
+      categories: categories.map(({ icon, ...rest }) => rest)
+    };
+    localStorage.setItem("budgetData", JSON.stringify(saveData));
     alert("Budget saved successfully!");
   };
 
@@ -76,6 +80,29 @@ const BudgetPlanner = () => {
     setTotalIncome(0);
     setCategories(categories.map((cat) => ({ ...cat, amount: 0, percent: 0 })));
   };
+
+  const getIconComponent = (name) => {
+    const icons = {
+      "Rent": <Home className="h-5 w-5" />,
+      "Food": <Utensils className="h-5 w-5" />,
+      "Transport": <Car className="h-5 w-5" />,
+      "Lifestyle": <PartyPopper className="h-5 w-5" />,
+      "Savings": <DollarSign className="h-5 w-5" />
+    };
+    return icons[name];
+  };
+
+  useEffect(() => {
+    const savedData = localStorage.getItem("budgetData");
+    if (savedData) {
+      const parsedData = JSON.parse(savedData);
+      setTotalIncome(parsedData.totalIncome);
+      setCategories(parsedData.categories.map(cat => ({
+        ...cat,
+        icon: getIconComponent(cat.name)
+      })));
+    }
+  }, []);
 
   // Prepare data for pie chart
   const pieData = categories
@@ -85,6 +112,8 @@ const BudgetPlanner = () => {
       value: cat.amount,
       percent: cat.percent,
     }));
+
+    
 
   const totalAllocated = categories.reduce((sum, cat) => sum + cat.amount, 0);
 
@@ -123,6 +152,7 @@ const BudgetPlanner = () => {
                 setTotalIncome(value === "" ? 0 : Number(value));
               }}
               onCategoryChange={handleCategoryChange}
+              getIconComponent={getIconComponent}
             />
             
             <ActionButtons onSave={handleSave} onReset={handleReset} />

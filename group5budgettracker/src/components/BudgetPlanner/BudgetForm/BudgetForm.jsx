@@ -1,10 +1,11 @@
 import CategoryRow from "./CategoryRow.jsx";
 
-const BudgetForm = ({ 
-  totalIncome, 
-  categories, 
-  onIncomeChange, 
-  onCategoryChange 
+const BudgetForm = ({
+  totalIncome,
+  categories,
+  onIncomeChange,
+  onCategoryChange,
+  getIconComponent 
 }) => {
   return (
     <div>
@@ -25,6 +26,7 @@ const BudgetForm = ({
             placeholder="0.00"
             value={totalIncome || ""}
             onChange={onIncomeChange}
+            getIconComponent={getIconComponent}
           />
         </div>
       </div>
@@ -48,10 +50,11 @@ const BudgetForm = ({
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {categories.map((cat) => (
-                <CategoryRow 
-                  key={cat.id} 
-                  category={cat} 
-                  onChange={onCategoryChange} 
+                <CategoryRow
+                  key={cat.id}
+                  category={cat}
+                  onChange={onCategoryChange}
+                  getIconComponent={getIconComponent} 
                 />
               ))}
             </tbody>

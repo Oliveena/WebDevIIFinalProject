@@ -1,12 +1,12 @@
 import Tooltip from "../Tooltip/Tooltip.jsx";
 
-const CategoryRow = ({ category, onChange }) => {
+const CategoryRow = ({ category, onChange, getIconComponent }) => {
   return (
     <tr className="hover:bg-gray-50">
       <td className="px-6 py-4 whitespace-nowrap">
         <div className="flex items-center">
           <div className="flex-shrink-0 bg-blue-100 p-2 rounded-lg">
-            {category.icon}
+            {category.icon || getIconComponent(category.name)}
           </div>
           <div className="ml-4">
             <div className="flex items-center">
