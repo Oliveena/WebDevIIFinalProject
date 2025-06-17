@@ -93,6 +93,18 @@
     - Dylan: testing
     - Evan: testing
 
+    ### Day 8 <ins>2025-06-17</ins>
+
+    1) Yesterday: Mock server with mock dashboard. Completed Login and Registration. Finished budget page.
+    2) Today: 
+    - Ana: PowerPoint for presentation tomorrow
+    - Evan: Login/Registration JSON mock server
+    - Dylan: Connecting the mock data from Budget to Spending pages, so that the budget set by user is displayed on the graph on the Spending page.
+    - all 3: ...
+    3) Any issues obstacles/challenges/need-help? 
+    - Ana: 
+    - Dylan: 
+    - Evan: 
 
 
 

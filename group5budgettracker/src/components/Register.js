@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
+
 import {
   Box,
   Button,
@@ -11,10 +13,14 @@ import {
 import { FcGoogle } from 'react-icons/fc'; 
 
 export default function Register() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const { login } = useAuth();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -22,8 +28,43 @@ export default function Register() {
       return;
     }
 
-    // TODO: registration logic
-    alert('Registered successfully!');
+    try {
+      // Check if user already exists
+      const checkRes = await fetch(`http://localhost:3001/users?email=${email}`);
+      const existingUsers = await checkRes.json();
+
+      if (existingUsers.length > 0) {
+        alert('A user with this email already exists.');
+        return;
+      }
+
+      // Register new user
+      const res = await fetch('http://localhost:3001/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      });
+
+      if (res.ok) {
+        const newUser = await res.json();
+        login(newUser);
+
+        alert('Registered successfully!');
+        setName('');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+      } else {
+        alert('Something went wrong while registering.');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Registration failed due to a server error.');
+    }
   };
 
   // TODO: can the user really register with Google?
@@ -51,6 +92,8 @@ export default function Register() {
             required
             fullWidth
             autoComplete="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
 
           <TextField
@@ -59,6 +102,8 @@ export default function Register() {
             required
             fullWidth
             autoComplete="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
 
           <TextField

@@ -8,13 +8,41 @@ import {
   Divider,
   Stack,
 } from '@mui/material';
+
+import { useAuth } from '../context/AuthContext';
+
 import { FcGoogle } from "react-icons/fc";
 
 export default function Login() {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle login logic here
-  };
+
+  const { login } = useAuth();
+
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.target);
+  const email = formData.get('email');
+  const password = formData.get('password');
+
+  try {
+    const res = await fetch(
+      `http://localhost:3001/users?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
+    );
+    const data = await res.json();
+
+    console.log('Login data:', data);
+
+    if (data.length > 0) {
+      login(data[0]);
+      alert('Login successful!');
+    } else {
+      alert('Invalid email or password');
+    }
+  } catch (err) {
+    console.error(err);
+    alert('Login failed');
+  }
+};
 
   const handleGoogleLogin = () => {
     // Handle Google login logic here
@@ -37,6 +65,7 @@ export default function Login() {
       <form onSubmit={handleSubmit}>
         <Stack spacing={2}>
           <TextField
+            name='email'
             label="Email"
             type="email"
             required
@@ -45,6 +74,7 @@ export default function Login() {
           />
 
           <TextField
+            name='password'
             label="Password"
             type="password"
             required
