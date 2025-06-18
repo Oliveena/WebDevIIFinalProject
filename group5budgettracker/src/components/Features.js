@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { BarChart3, Shield, Smartphone, Zap, PieChart, Bell } from 'lucide-react';
 
 const Features = () => {
@@ -84,9 +85,11 @@ const Features = () => {
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
               Join thousands of users who have already taken control of their financial future with Ledgerly.
             </p>
-            <button className="bg-white text-primary-700 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-              Start Free Trial
-            </button>
+            <Link to="/register">
+              <button className="bg-white text-primary-700 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                Start Free Trial
+              </button>
+            </Link>
           </div>
         </div>
       </div>
