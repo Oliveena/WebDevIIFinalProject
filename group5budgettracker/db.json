@@ -11,6 +11,18 @@
       "name": "Evan Sharp",
       "email": "evan@gmail.com",
       "password": "total1234"
+    },
+    {
+      "id": "5aef",
+      "name": "Evan Sharp",
+      "email": "EvanS@gmail.com",
+      "password": "password"
+    },
+    {
+      "id": "e44b",
+      "name": "John Doe",
+      "email": "John@example.com",
+      "password": "password1234"
     }
   ]
 }
