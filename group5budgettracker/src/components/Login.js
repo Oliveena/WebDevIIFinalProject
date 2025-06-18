@@ -53,12 +53,20 @@ export default function Login() {
     <Box
       maxWidth={400}
       mx="auto"
-      mt={8}
+      mt={10}
       p={4}
       boxShadow={3}
       borderRadius={2}
+      sx={{ backgroundColor: 'white' }}
+      className="rounded-2xl shadow-lg mb-32"
     >
-      <Typography variant="h4" component="h1" mb={3} textAlign="center">
+      <Typography
+        variant="h4"
+        component="h1"
+        mb={3}
+        textAlign="center"
+        className="text-primary-700 font-bold"
+      >
         Login
       </Typography>
 
@@ -70,7 +78,6 @@ export default function Login() {
             type="email"
             required
             fullWidth
-            autoComplete="email"
           />
 
           <TextField
@@ -79,16 +86,23 @@ export default function Login() {
             type="password"
             required
             fullWidth
-            autoComplete="current-password"
           />
 
           <Box display="flex" justifyContent="flex-end">
-            <Link href="#" underline="hover" variant="body2">
+            <Link href="#" underline="hover" variant="body2" className="text-primary-500">
               Forgot password?
             </Link>
           </Box>
 
-          <Button type="submit" variant="contained" fullWidth>
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            sx={{
+              backgroundColor: '#003566',
+              '&:hover': { backgroundColor: '#001D3D' },
+            }}
+          >
             Login
           </Button>
         </Stack>
@@ -96,8 +110,23 @@ export default function Login() {
 
       <Divider sx={{ my: 3 }}>OR</Divider>
 
-
-<Button startIcon={<FcGoogle />}>Sign in with Google</Button>
+      <Button
+        fullWidth
+        variant="outlined"
+        startIcon={<FcGoogle />}
+        onClick={handleGoogleLogin}
+        sx={{
+          borderColor: '#FFD60A',
+          color: '#000814',
+          '&:hover': {
+            borderColor: '#FFC300',
+            backgroundColor: '#fffbe6',
+          },
+        }}
+      >
+        Sign in with Google
+      </Button>
     </Box>
+
   );
 }
