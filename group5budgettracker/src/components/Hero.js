@@ -54,7 +54,7 @@ const Hero = () => {
           </div>
 
           {/* Visual */}
-          <div className="relative animate-fade-in" style={{ animationDelay: '0.3s' }}>
+          <div className="relative">
             <div className="relative bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20">
               {/* Mock app interface */}
               <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">

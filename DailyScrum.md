@@ -106,7 +106,18 @@
     - Dylan: 
     - Evan: 
 
+ ### Day 9 <ins>2025-06-18</ins>
 
+    1) Yesterday: Powerpoint presentation, authContext, saving budget to localstorage
+    2) Today: 
+    - Ana: Working on API call and dashboard
+    - Evan: Working on nav links being fully functional
+    - Dylan: Working on linking Spending with budget
+    
+    3) Any issues obstacles/challenges/need-help? 
+    - Ana: 
+    - Dylan: 
+    - Evan:
 
 
 

@@ -1,11 +1,20 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Wallet, Menu, X } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  const { isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+  await logout();
+  navigate("/");
+};
 
   return (
     <nav className="bg-primary-600 text-white shadow-lg border-b border-primary-500">
@@ -22,12 +31,27 @@ export default function Navbar() {
           {/* Desktop Links */}
           <div className="hidden md:flex space-x-6 items-center">
             <Link to="/" className="hover:text-accent-500 transition">Home</Link>
-            <Link to="/dashboard" className="hover:text-accent-500 transition">Dashboard</Link>
-            <Link to="/spending" className="hover:text-accent-500 transition">Spending</Link>
-            {/*<Link to="/budget" className="hover:text-accent-500 transition">Budget</Link>*/}
-            <Link to="/planner" className="hover:text-accent-500 transition">Planner</Link>
-            <Link to="/login" className="hover:text-accent-500 transition">Login</Link>
-            <Link to="/register" className="hover:text-accent-500 transition">Register</Link>
+
+            {isAuthenticated && (
+              <>
+                <Link to="/dashboard" className="hover:text-accent-500 transition">Dashboard</Link>
+                <Link to="/spending" className="hover:text-accent-500 transition">Spending</Link>
+                <Link to="/planner" className="hover:text-accent-500 transition">Planner</Link>
+                <div className="border border-white px-2 py-1">
+                  <button onClick={handleLogout} className="hover:text-accent-500 transition text-white">
+                    Logout
+                  </button>
+                </div>
+                {/*<Link to="/budget" className="hover:text-accent-500 transition">Budget</Link>*/}
+              </>
+            )}
+            
+            {!isAuthenticated && (
+              <>
+                <Link to="/login" className="hover:text-accent-500 transition">Login</Link>
+                <Link to="/register" className="hover:text-accent-500 transition">Register</Link>
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -42,13 +66,23 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="md:hidden bg-primary-600 px-4 pb-4 space-y-2">
-          <Link to="/" className="hover:text-accent-500 transition block">Home</Link>
-          <Link to="/dashboard" className="hover:text-accent-500 transition block">Dashboard</Link>
-          <Link to="/spending" className="hover:text-accent-500 transition block">Spending</Link>
-          <Link to="/budget" className="hover:text-accent-500 transition block">Budget</Link>
-          <Link to="/planner" className="hover:text-accent-500 transition block">Planner</Link>
-          <Link to="/login" className="hover:text-accent-500 transition block">Login</Link>
-          <Link to="/register" className="hover:text-accent-500 transition block">Register</Link>
+          <Link to="/" className="hover:text-accent-500 transition">Home</Link>
+
+            {isAuthenticated && (
+              <>
+                <Link to="/dashboard" className="hover:text-accent-500 transition">Dashboard</Link>
+                <Link to="/spending" className="hover:text-accent-500 transition">Spending</Link>
+                <Link to="/planner" className="hover:text-accent-500 transition">Planner</Link>
+                {/*<Link to="/budget" className="hover:text-accent-500 transition">Budget</Link>*/}
+              </>
+            )}
+            
+            {!isAuthenticated && (
+              <>
+                <Link to="/login" className="hover:text-accent-500 transition">Login</Link>
+                <Link to="/register" className="hover:text-accent-500 transition">Register</Link>
+              </>
+            )}
         </div>
       )}
     </nav>

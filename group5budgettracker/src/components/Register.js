@@ -11,6 +11,7 @@ import {
   Divider,
 } from '@mui/material';
 import { FcGoogle } from 'react-icons/fc'; 
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -19,6 +20,7 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,7 +55,7 @@ export default function Register() {
         const newUser = await res.json();
         login(newUser);
 
-        alert('Registered successfully!');
+        navigate("/dashboard");
         setName('');
         setEmail('');
         setPassword('');

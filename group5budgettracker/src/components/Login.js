@@ -10,12 +10,13 @@ import {
 } from '@mui/material';
 
 import { useAuth } from '../context/AuthContext';
-
 import { FcGoogle } from "react-icons/fc";
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
 
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
   e.preventDefault();
@@ -34,7 +35,7 @@ export default function Login() {
 
     if (data.length > 0) {
       login(data[0]);
-      alert('Login successful!');
+      navigate("/dashboard");
     } else {
       alert('Invalid email or password');
     }
