@@ -76,12 +76,20 @@ export default function Register() {
     <Box
       maxWidth={400}
       mx="auto"
-      mt={8}
+      mt={10}
       p={4}
       boxShadow={3}
       borderRadius={2}
+      sx={{ backgroundColor: 'white' }}
+      className="rounded-2xl shadow-lg mb-32"
     >
-      <Typography variant="h4" component="h1" mb={3} textAlign="center">
+      <Typography
+        variant="h4"
+        component="h1"
+        mb={3}
+        textAlign="center"
+        className="text-primary-700 font-bold"
+      >
         Register
       </Typography>
 
@@ -91,54 +99,61 @@ export default function Register() {
             label="Full Name"
             required
             fullWidth
-            autoComplete="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-
           <TextField
             label="Email"
             type="email"
             required
             fullWidth
-            autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-
           <TextField
             label="Password"
             type="password"
             required
             fullWidth
-            autoComplete="new-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-
           <TextField
             label="Confirm Password"
             type="password"
             required
             fullWidth
-            autoComplete="new-password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
 
-          <Button type="submit" variant="contained" fullWidth>
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            sx={{
+              backgroundColor: '#003566',
+              '&:hover': { backgroundColor: '#001D3D' },
+            }}
+          >
             Register
           </Button>
 
-          {/* Divider with text */}
           <Divider>OR</Divider>
 
-          {/* Google Register Button */}
           <Button
-            variant="outlined"
             fullWidth
+            variant="outlined"
             startIcon={<FcGoogle />}
             onClick={handleGoogleRegister}
+            sx={{
+              borderColor: '#FFD60A',
+              color: '#000814',
+              '&:hover': {
+                borderColor: '#FFC300',
+                backgroundColor: '#fffbe6',
+              },
+            }}
           >
             Register with Google
           </Button>
@@ -148,11 +163,12 @@ export default function Register() {
       <Box mt={2} textAlign="center">
         <Typography variant="body2">
           Already have an account?{' '}
-          <Link href="#" underline="hover">
+          <Link href="#" underline="hover" className="text-primary-500">
             Login
           </Link>
         </Typography>
       </Box>
     </Box>
+
   );
 }

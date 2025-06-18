@@ -24,7 +24,7 @@ export default function Navbar() {
             <Link to="/" className="hover:text-accent-500 transition">Home</Link>
             <Link to="/dashboard" className="hover:text-accent-500 transition">Dashboard</Link>
             <Link to="/spending" className="hover:text-accent-500 transition">Spending</Link>
-            <Link to="/budget" className="hover:text-accent-500 transition">Budget</Link>
+            {/*<Link to="/budget" className="hover:text-accent-500 transition">Budget</Link>*/}
             <Link to="/planner" className="hover:text-accent-500 transition">Planner</Link>
             <Link to="/login" className="hover:text-accent-500 transition">Login</Link>
             <Link to="/register" className="hover:text-accent-500 transition">Register</Link>
