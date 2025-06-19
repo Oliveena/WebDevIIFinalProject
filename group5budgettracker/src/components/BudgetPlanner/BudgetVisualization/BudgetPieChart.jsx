@@ -7,7 +7,7 @@ import {
   Legend,
 } from "recharts";
 
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8"];
+import { categoryColors } from "../../../constants/CategoryConfig";
 
 const BudgetPieChart = ({ data }) => {
   const CustomTooltip = ({ active, payload }) => {
@@ -38,7 +38,10 @@ const BudgetPieChart = ({ data }) => {
             label={({ name, percent }) => `${name}: ${percent.toFixed(0)}%`}
           >
             {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              <Cell
+                key={`cell-${index}`}
+                fill={categoryColors[entry.name] || categoryColors.Everything}
+              />
             ))}
           </Pie>
           <ChartTooltip content={<CustomTooltip />} />

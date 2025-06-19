@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SpendingGraph from "./spendingTrackerComponents/SpendingGraph";
 import AddExpenseForm from "./spendingTrackerComponents/AddExpenseForm";
 import ListOfExpenses from "./spendingTrackerComponents/ListOfExpenses";
@@ -190,12 +190,14 @@ export default function SpendingTracker() {
     const savedBudget = localStorage.getItem("budgetData");
     if (savedBudget) {
       const parsedData = JSON.parse(savedBudget);
-      // Transform categories array into {category: amount} object
       const budgetMap = parsedData.categories.reduce((acc, category) => {
         acc[category.name] = category.amount;
         return acc;
       }, {});
-      setBudgets(budgetMap);
+      setBudgets({
+        ...budgetMap,
+        totalIncome: parsedData.totalIncome, // Add this line
+      });
     }
   }, []);
 

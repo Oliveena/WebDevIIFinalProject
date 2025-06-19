@@ -33,22 +33,24 @@ export default function SpendingGraph({ expenses, showBudget, budgets }) {
 
   const totalSpent = (chartData[selectedCategory] || []).at(-1)?.value || 0;
   const budget =
-    selectedCategory !== "Everything" ? budgets?.[selectedCategory] : null;
+    selectedCategory !== "Everything"
+      ? budgets?.[selectedCategory]
+      : budgets?.totalIncome; // Use totalIncome for "Everything" view
   const status =
     budget !== null ? (totalSpent > budget ? "above" : "below") : null;
 
   const budgetMessage =
     selectedCategory === "Everything"
-      ? `Your total spending for ${selectedRange} across all categories is $${totalSpent.toFixed(
+      ? (() => {
+          const totalBudget = budgets?.totalIncome || 0;
+          const status = totalSpent > totalBudget ? "above" : "below";
+          return `Your total spending for ${selectedRange} is $${totalSpent.toFixed(
+            2
+          )}. You're ${status} $${totalBudget.toFixed(2)} budget.`;
+        })()
+      : `Your expenses for ${selectedRange} in ${selectedCategory} is $${totalSpent.toFixed(
           2
-        )}.`
-      : budget !== null
-      ? `Your expenses for ${selectedRange} in category ${selectedCategory} is $${totalSpent.toFixed(
-          2
-        )}. You're ${status} budget.`
-      : `Your expenses for ${selectedRange} in category ${selectedCategory} is $${totalSpent.toFixed(
-          2
-        )}.`;
+        )}. You're ${status} $${budget?.toFixed(2)} budget.`;
 
   if (loading) return <p>Loading chart...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -116,17 +118,16 @@ export default function SpendingGraph({ expenses, showBudget, budgets }) {
             name="Actual Expenses"
           />
 
-          {showBudget &&
-            budget !== null && ( // Checks if budget is null
-              <Line
-                type="monotone"
-                dataKey={() => budget} // Use the actual budget value
-                stroke="#8884d8"
-                name="Planned Budget"
-                strokeDasharray="5 5"
-                dot={false}
-              />
-            )}
+          {showBudget && budgets && (
+            <Line
+              type="monotone"
+              dataKey={() => budget} // Now uses the computed budget value
+              stroke="#8884d8"
+              name="Planned Budget"
+              strokeDasharray="5 5"
+              dot={false}
+            />
+          )}
         </LineChart>
       </ResponsiveContainer>
       {showBudget && (

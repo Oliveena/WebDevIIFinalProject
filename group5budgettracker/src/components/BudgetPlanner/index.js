@@ -1,59 +1,57 @@
 import { useState, useEffect } from "react";
 import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Tooltip as ChartTooltip, Legend } from "recharts";
-import { PieChart, DollarSign, Home, Utensils, Car, PartyPopper, Info, ArrowRightCircle, Save, RefreshCw } from "lucide-react";
+import { PieChart, Info, ArrowRightCircle, Save, RefreshCw } from "lucide-react";
+import { categoryColors, categoryIcons } from '../../constants/CategoryConfig';
 
-// Subcomponents
 import BudgetForm from "./BudgetForm/BudgetForm.jsx";
 import BudgetVisualization from "./BudgetVisualization/BudgetVisualization.jsx";
 import ActionButtons from "./ActionButtons.jsx";
 import Tooltip from "./Tooltip/Tooltip.jsx";
 
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884D8"];
-
 const BudgetPlanner = () => {
   const [totalIncome, setTotalIncome] = useState(0);
   const [categories, setCategories] = useState([
-    {
-      id: 1,
-      name: "Rent",
-      icon: <Home className="h-5 w-5" />,
-      amount: 0,
-      percent: 0,
-      tooltip: "Monthly housing expenses including rent or mortgage payments, property taxes, and insurance"
-    },
-    {
-      id: 2,
-      name: "Food",
-      icon: <Utensils className="h-5 w-5" />,
-      amount: 0,
-      percent: 0,
-      tooltip: "All food-related expenses including groceries, dining out, coffee shops, and meal delivery services"
-    },
-    {
-      id: 3,
-      name: "Transport",
-      icon: <Car className="h-5 w-5" />,
-      amount: 0,
-      percent: 0,
-      tooltip: "Transportation costs such as gas, public transit fares, car payments, insurance, and maintenance"
-    },
-    {
-      id: 4,
-      name: "Lifestyle",
-      icon: <PartyPopper className="h-5 w-5" />,
-      amount: 0,
-      percent: 0,
-      tooltip: "Entertainment, hobbies, subscriptions (streaming, gym), personal care, and discretionary spending"
-    },
-    {
-      id: 5,
-      name: "Savings",
-      icon: <DollarSign className="h-5 w-5" />,
-      amount: 0,
-      percent: 0,
-      tooltip: "Financial goals including emergency fund, retirement accounts, investments, and other savings"
-    },
-  ]);
+  {
+    id: 1,
+    name: "Rent",
+    icon: categoryIcons.Rent,
+    amount: 0,
+    percent: 0,
+    tooltip: "Monthly housing expenses including rent or mortgage payments"
+  },
+  {
+    id: 2,
+    name: "Food",
+    icon: categoryIcons.Food,
+    amount: 0,
+    percent: 0,
+    tooltip: "All food-related expenses"
+  },
+  {
+    id: 3,
+    name: "Transport",
+    icon: categoryIcons.Transport,
+    amount: 0,
+    percent: 0,
+    tooltip: "Transportation costs"
+  },
+  {
+    id: 4,
+    name: "Clothes",
+    icon: categoryIcons.Clothes,
+    amount: 0,
+    percent: 0,
+    tooltip: "Clothing and apparel expenses"
+  },
+  {
+    id: 5,
+    name: "Utilities",
+    icon: categoryIcons.Utilities,
+    amount: 0,
+    percent: 0,
+    tooltip: "Bills like electricity, water, and internet"
+  }
+]);
 
   const handleCategoryChange = (id, value) => {
     const updatedCategories = categories.map((cat) => {
@@ -82,14 +80,7 @@ const BudgetPlanner = () => {
   };
 
   const getIconComponent = (name) => {
-    const icons = {
-      "Rent": <Home className="h-5 w-5" />,
-      "Food": <Utensils className="h-5 w-5" />,
-      "Transport": <Car className="h-5 w-5" />,
-      "Lifestyle": <PartyPopper className="h-5 w-5" />,
-      "Savings": <DollarSign className="h-5 w-5" />
-    };
-    return icons[name];
+    return categoryIcons[name] || null;
   };
 
   useEffect(() => {
@@ -112,8 +103,6 @@ const BudgetPlanner = () => {
       value: cat.amount,
       percent: cat.percent,
     }));
-
-    
 
   const totalAllocated = categories.reduce((sum, cat) => sum + cat.amount, 0);
 
