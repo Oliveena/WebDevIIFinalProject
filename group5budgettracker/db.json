@@ -1,13 +1,13 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Evan",
       "email": "evan@example.com",
       "password": "letmein"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Evan Sharp",
       "email": "evan@gmail.com",
       "password": "total1234"
@@ -23,6 +23,12 @@
       "name": "John Doe",
       "email": "John@example.com",
       "password": "password1234"
+    },
+    {
+      "id": "a2d2",
+      "name": "dylan",
+      "email": "dylan@mail.com",
+      "password": "dylan"
     }
   ]
 }
