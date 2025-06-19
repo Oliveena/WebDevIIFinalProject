@@ -9,6 +9,8 @@ import {
   CardMedia,
   Button,
   CircularProgress,
+  MenuItem,
+  TextField,
   ToggleButton,
   ToggleButtonGroup,
   Box,
@@ -23,6 +25,10 @@ export default function Dashboard() {
   const [filter, setFilter] = useState("global");
   const { user, isAuthenticated, logout } = useAuth();
   const [username, setUsername] = useState(user?.name || "User");
+  const [savingGoal, setSavingGoal] = useState("");
+const [goalAmount, setGoalAmount] = useState(0);
+const [currentSavings, setCurrentSavings] = useState(0); 
+
 
   useEffect(() => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -39,18 +45,22 @@ export default function Dashboard() {
     "Europe", "European", "ECB", "Germany", "France", "Spain", "Italy", "Eurozone", "EU", "Brussels", "Paris", "Berlin", "Madrid", "Euro"
   ];
 
-// console.log("Original:", allNews.length);
-// console.log("Filtered:", allNews.filter(isRelevant).length);
+const keywordMatch = (keywords) => (item) => {
+  const text = (item.title + " " + item.summary).toLowerCase();
+  // "some" makes filter more lax
+  return keywords.some((word) =>
+    text.includes(word.toLowerCase())
+  );
+};
 
-  const keywordMatch = (keywords) => (item) =>
-    keywords.some((word) =>
-      (item.title + item.summary).toLowerCase().includes(word.toLowerCase())
-    );
 
 const isRelevant = (item) => {
   const content = (item.title + " " + (item.summary || "")).toLowerCase();
-  return !bannedPhrases.some(phrase => content.includes(phrase));
+  // some laxity allowed, news with >1 impertinent term are blocled
+  const bannedHits = bannedPhrases.filter(phrase => content.includes(phrase));
+  return bannedHits.length < 2;
 };
+
 
   // unnecessary keywords (boilerplate or internal releases)
 const bannedPhrases = [
@@ -75,6 +85,8 @@ const bannedPhrases = [
     },
   });
 
+  console.log("API Response:", response.data);
+
   const allNews = response.data.feed || [];
 
   console.log("Original:", allNews.length); 
@@ -85,6 +97,11 @@ const bannedPhrases = [
   europe: allNews.filter(keywordMatch(europeanKeywords)).filter(isRelevant),
   global: allNews.filter(isRelevant),
 }[filter];
+
+// debugging
+console.log("Filter:", filter);
+console.log("All News:", allNews.length);
+console.log("Filtered News:", filtered.length);
 
         setNews(filtered || []);
       } catch (error) {
@@ -107,16 +124,78 @@ const bannedPhrases = [
       <Typography variant="body1" align="center" gutterBottom>
         Welcome to your budget app.
       </Typography>
+<Box sx={{ mt: 3, textAlign: "center" }}>
+  <Typography variant="h6" gutterBottom>
+    What are you saving up for?
+  </Typography>
 
-      <Box sx={{ mt: 3, textAlign: "center" }}>
-        <Typography variant="body2">
-          <strong>Suggestion:</strong> Add a “What are you saving up for?” section
-          like “house”, “car”, “travel”, or “family”.
-        </Typography>
-        <Typography variant="body2" mt={1}>
-          Then we can show something like: <em>“You're $X away from your goal of $Y for [selectedGoal]”</em>
-        </Typography>
-      </Box>
+  {/* Goal Selection */}
+  <TextField
+    select
+    value={savingGoal}
+    onChange={(e) => setSavingGoal(e.target.value)}
+    label="Select Goal"
+    sx={{ minWidth: 200, mb: 2 }}
+  >
+    <MenuItem value="house">House</MenuItem>
+    <MenuItem value="car">Car</MenuItem>
+    <MenuItem value="travel">Travel</MenuItem>
+    <MenuItem value="family">Family</MenuItem>
+    <MenuItem value="other">Other</MenuItem>
+  </TextField>
+
+  {/* Custom goal name input */}
+  {savingGoal === "other" && (
+    <TextField
+      value={savingGoal}
+      onChange={(e) => setSavingGoal(e.target.value)}
+      label="Enter your goal"
+      sx={{ minWidth: 200, mb: 2 }}
+    />
+  )}
+
+  {/* Amount Inputs with Validation */}
+  <Box sx={{ display: "flex", justifyContent: "center", gap: 2, mb: 2 }}>
+    <TextField
+      type="number"
+      label="Goal amount ($)"
+      value={goalAmount}
+      error={goalAmount < 0}
+      helperText={goalAmount < 0 ? "Amount cannot be negative" : ""}
+      onChange={(e) => {
+        const value = Number(e.target.value);
+        setGoalAmount(value >= 0 ? value : 0);
+      }}
+      sx={{ minWidth: 150 }}
+    />
+    <TextField
+      type="number"
+      label="Current savings ($)"
+      value={currentSavings}
+      error={currentSavings < 0}
+      helperText={currentSavings < 0 ? "Savings cannot be negative" : ""}
+      onChange={(e) => {
+        const value = Number(e.target.value);
+        setCurrentSavings(value >= 0 ? value : 0);
+      }}
+      sx={{ minWidth: 150 }}
+    />
+  </Box>
+
+  {/* Feedback Summary */}
+  {savingGoal && goalAmount > 0 && (
+    <Typography variant="body1" sx={{ mt: 2 }}>
+      You’re <strong>${Math.max(goalAmount - currentSavings, 0).toLocaleString()}</strong> away from your goal of <strong>${goalAmount.toLocaleString()}</strong> for <strong>{savingGoal}</strong>.
+    </Typography>
+  )}
+
+  {goalAmount > 0 && currentSavings >= goalAmount && (
+    <Typography variant="body1" sx={{ mt: 2, color: "green" }}>
+     Congratulations! You’ve reached your savings goal for <strong>{savingGoal}</strong>.
+    </Typography>
+  )}
+</Box>
+
 
       <Box sx={{ mt: 6 }}>
         <Typography variant="h5" gutterBottom>
@@ -146,44 +225,59 @@ const bannedPhrases = [
         ) : news.length > 0 ? (
           <Stack direction="row" spacing={2} sx={{ overflowX: "auto", pb: 2 }}>
             {news.slice(0, 10).map((item) => (
-              <Card
-                key={item.url}
-                sx={{
-                  minWidth: 300,
-                  maxWidth: 300,
-                  display: "flex",
-                  flexDirection: "column",
-                  flexShrink: 0,
-                }}
-                variant="outlined"
-              >
-                {item.banner_image && (
-                  <CardMedia
-                    component="img"
-                    height="140"
-                    image={item.banner_image}
-                    alt="news thumbnail"
-                  />
-                )}
-                <CardContent>
-                  <Typography variant="h6" gutterBottom>
-                    {item.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {item.summary.slice(0, 100)}...
-                  </Typography>
-                </CardContent>
-                <CardActions sx={{ mt: "auto" }}>
-                  <Button
-                    size="small"
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Read More
-                  </Button>
-                </CardActions>
-              </Card>
+<Card
+  key={item.url}
+  sx={{
+    minWidth: 300,
+    maxWidth: 300,
+    maxHeight: 380,
+    display: "flex",
+    flexDirection: "column",
+    flexShrink: 0,
+    border: '2px solid #FFD700',
+    boxSizing: 'border-box',
+  }}
+  variant="outlined"
+>
+  {item.banner_image && (
+    <CardMedia
+      component="img"
+      height="120"
+      image={item.banner_image}
+      alt="news thumbnail"
+    />
+  )}
+  <CardContent>
+    <Typography variant="h6" gutterBottom>
+      {item.title}
+    </Typography>
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      sx={{
+        height: 72,
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        display: '-webkit-box',
+        WebkitLineClamp: 3,
+        WebkitBoxOrient: 'vertical',
+      }}
+    >
+      {item.summary}
+    </Typography>
+  </CardContent>
+  <CardActions sx={{ mt: "auto" }}>
+    <Button
+      size="small"
+      href={item.url}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Read More
+    </Button>
+  </CardActions>
+</Card>
+
             ))}
           </Stack>
         ) : (

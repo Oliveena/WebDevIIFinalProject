@@ -12,7 +12,6 @@ import {
 import CategorySelect from "./CategorySelect";
 import useChartData from "./useChartData";
 import { categoryColors, categoryIcons } from "../../constants/CategoryConfig";
-import React, { useState } from "react";
 
 const timeRanges = ["1 Week", "1 Month", "3 Months", "All"];
 
@@ -39,23 +38,25 @@ export default function SpendingGraph({ expenses, showBudget, budgets }) {
       : budgets?.totalIncome; // Use totalIncome for "Everything" view
   const status =
     budget !== null ? (totalSpent > budget ? "above" : "below") : null;
+    
+let budgetMessage = "";
 
-  const budgetMessage =
-    selectedCategory === "Everything"
-      ? `Your total spending for ${selectedRange} across all categories is $${totalSpent.toFixed(2)}.`
-      : budget !== null
-      ? `Your expenses for ${selectedRange} in category ${selectedCategory} is $${totalSpent.toFixed(2)}. You're ${status} budget.`
-      : `Your expenses for ${selectedRange} in category ${selectedCategory} is $${totalSpent.toFixed(2)}.`;
-      ? (() => {
-          const totalBudget = budgets?.totalIncome || 0;
-          const status = totalSpent > totalBudget ? "above" : "below";
-          return `Your total spending for ${selectedRange} is $${totalSpent.toFixed(
-            2
-          )}. You're ${status} $${totalBudget.toFixed(2)} budget.`;
-        })()
-      : `Your expenses for ${selectedRange} in ${selectedCategory} is $${totalSpent.toFixed(
-          2
-        )}. You're ${status} $${budget?.toFixed(2)} budget.`;
+if (selectedCategory === "Everything") {
+  const totalBudget = budgets?.totalIncome || 0;
+  const status = totalSpent > totalBudget ? "above" : "below";
+  budgetMessage = `Your total spending for ${selectedRange} is $${totalSpent.toFixed(
+    2
+  )}. You're ${status} $${totalBudget.toFixed(2)} budget.`;
+} else if (budget !== null) {
+  budgetMessage = `Your expenses for ${selectedRange} in category ${selectedCategory} is $${totalSpent.toFixed(
+    2
+  )}. You're ${status} $${budget?.toFixed(2)} budget.`;
+} else {
+  budgetMessage = `Your expenses for ${selectedRange} in category ${selectedCategory} is $${totalSpent.toFixed(
+    2
+  )}.`;
+}
+
 
   if (loading) return <p>Loading chart...</p>;
   if (error) return <p>Error: {error}</p>;
