@@ -15,11 +15,6 @@ import { categoryColors, categoryIcons } from "../../constants/CategoryConfig";
 
 const timeRanges = ["1 Week", "1 Month", "3 Months", "All"];
 
-// Loading state check before showing budget line
-if (loading) return <p>Loading chart...</p>;
-if (error) return <p>Error: {error}</p>;
-if (showBudget && budgets === null) return <p>Loading budget data...</p>;
-
 export default function SpendingGraph({ expenses, showBudget, budgets }) {
   // Add budgets prop
   const [selectedCategory, setSelectedCategory] = useState("Food");
@@ -30,6 +25,12 @@ export default function SpendingGraph({ expenses, showBudget, budgets }) {
     loading,
     error,
   } = useChartData(expenses, selectedCategory, selectedRange);
+
+  // Loading state check before showing budget line
+  if (loading) return <p>Loading chart...</p>;
+  if (error) return <p>Error: {error}</p>;
+  if (showBudget && budgets === null) return <p>Loading budget data...</p>;
+
   const totalSpent = (chartData[selectedCategory] || []).at(-1)?.value || 0;
   const budget =
     selectedCategory !== "Everything" ? budgets?.[selectedCategory] : null;
