@@ -1,11 +1,15 @@
 import Tooltip from "../Tooltip/Tooltip.jsx";
+import { categoryColors } from "../../../constants/CategoryConfig";
 
 const CategoryRow = ({ category, onChange, getIconComponent }) => {
   return (
     <tr className="hover:bg-gray-50">
       <td className="px-6 py-4 whitespace-nowrap">
         <div className="flex items-center">
-          <div className="flex-shrink-0 bg-blue-100 p-2 rounded-lg">
+          <div
+            className="flex-shrink-0 p-2 rounded-lg"
+            style={{ backgroundColor: `${categoryColors[category.name]}20` }} // 20 = 12% opacity
+          >
             {category.icon || getIconComponent(category.name)}
           </div>
           <div className="ml-4">

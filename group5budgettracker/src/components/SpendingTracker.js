@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import SpendingGraph from "./spendingTrackerComponents/SpendingGraph";
 import AddExpenseForm from "./spendingTrackerComponents/AddExpenseForm";
 import ListOfExpenses from "./spendingTrackerComponents/ListOfExpenses";
@@ -195,7 +195,10 @@ export default function SpendingTracker() {
         acc[category.name] = category.amount;
         return acc;
       }, {});
-      setBudgets(budgetMap);
+      setBudgets({
+        ...budgetMap,
+        totalIncome: parsedData.totalIncome,
+      });
     }
   }, []);
 
