@@ -1,20 +1,28 @@
-import { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { Wallet, Menu, X } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [username, setUsername] = useState("");
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setUsername(storedUser.name);
+    }
+  }, []);
+
   const handleLogout = async () => {
-  await logout();
-  navigate("/");
-};
+    await logout();
+    navigate("/");
+  };
 
   return (
     <nav className="bg-primary-600 text-white shadow-lg border-b border-primary-500">
@@ -42,10 +50,9 @@ export default function Navbar() {
                     Logout
                   </button>
                 </div>
-                {/*<Link to="/budget" className="hover:text-accent-500 transition">Budget</Link>*/}
               </>
             )}
-            
+
             {!isAuthenticated && (
               <>
                 <Link to="/login" className="hover:text-accent-500 transition">Login</Link>
@@ -68,21 +75,20 @@ export default function Navbar() {
         <div className="md:hidden bg-primary-600 px-4 pb-4 space-y-2">
           <Link to="/" className="hover:text-accent-500 transition">Home</Link>
 
-            {isAuthenticated && (
-              <>
-                <Link to="/dashboard" className="hover:text-accent-500 transition">Dashboard</Link>
-                <Link to="/spending" className="hover:text-accent-500 transition">Spending</Link>
-                <Link to="/planner" className="hover:text-accent-500 transition">Planner</Link>
-                {/*<Link to="/budget" className="hover:text-accent-500 transition">Budget</Link>*/}
-              </>
-            )}
-            
-            {!isAuthenticated && (
-              <>
-                <Link to="/login" className="hover:text-accent-500 transition">Login</Link>
-                <Link to="/register" className="hover:text-accent-500 transition">Register</Link>
-              </>
-            )}
+          {isAuthenticated && (
+            <>
+              <Link to="/dashboard" className="hover:text-accent-500 transition">Dashboard</Link>
+              <Link to="/spending" className="hover:text-accent-500 transition">Spending</Link>
+              <Link to="/planner" className="hover:text-accent-500 transition">Planner</Link>
+            </>
+          )}
+
+          {!isAuthenticated && (
+            <>
+              <Link to="/login" className="hover:text-accent-500 transition">Login</Link>
+              <Link to="/register" className="hover:text-accent-500 transition">Register</Link>
+            </>
+          )}
         </div>
       )}
     </nav>

@@ -29,6 +29,18 @@
       "name": "dylan",
       "email": "dylan@mail.com",
       "password": "dylan"
+    },
+    {
+      "id": "3",
+      "name": "nine",
+      "email": "nine@ten.com",
+      "password": "910"
+    }, 
+    {
+      "id": "4",
+      "name": "Ten",
+      "email": "ten@eleven.com",
+      "password": "1011"
     }
   ]
 }

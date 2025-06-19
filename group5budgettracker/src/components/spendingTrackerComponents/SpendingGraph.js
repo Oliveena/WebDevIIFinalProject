@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   ResponsiveContainer,
   LineChart,
@@ -12,16 +11,11 @@ import {
 import CategorySelect from "./CategorySelect";
 import useChartData from "./useChartData";
 import { categoryColors, categoryIcons } from "../../constants/CategoryConfig";
+import React, { useState } from "react";
 
 const timeRanges = ["1 Week", "1 Month", "3 Months", "All"];
 
-// Loading state check before showing budget line
-if (loading) return <p>Loading chart...</p>;
-if (error) return <p>Error: {error}</p>;
-if (showBudget && budgets === null) return <p>Loading budget data...</p>;
-
 export default function SpendingGraph({ expenses, showBudget, budgets }) {
-  // Add budgets prop
   const [selectedCategory, setSelectedCategory] = useState("Food");
   const [selectedRange, setSelectedRange] = useState("1 Week");
 
@@ -30,27 +24,22 @@ export default function SpendingGraph({ expenses, showBudget, budgets }) {
     loading,
     error,
   } = useChartData(expenses, selectedCategory, selectedRange);
-  const totalSpent = (chartData[selectedCategory] || []).at(-1)?.value || 0;
+
+  const totalSpent =
+    (chartData[selectedCategory] || []).at(-1)?.value || 0;
+
   const budget =
     selectedCategory !== "Everything" ? budgets?.[selectedCategory] : null;
+
   const status =
     budget !== null ? (totalSpent > budget ? "above" : "below") : null;
 
   const budgetMessage =
     selectedCategory === "Everything"
-      ? `Your total spending for ${selectedRange} across all categories is $${totalSpent.toFixed(
-          2
-        )}.`
+      ? `Your total spending for ${selectedRange} across all categories is $${totalSpent.toFixed(2)}.`
       : budget !== null
-      ? `Your expenses for ${selectedRange} in category ${selectedCategory} is $${totalSpent.toFixed(
-          2
-        )}. You're ${status} budget.`
-      : `Your expenses for ${selectedRange} in category ${selectedCategory} is $${totalSpent.toFixed(
-          2
-        )}.`;
-
-  if (loading) return <p>Loading chart...</p>;
-  if (error) return <p>Error: {error}</p>;
+      ? `Your expenses for ${selectedRange} in category ${selectedCategory} is $${totalSpent.toFixed(2)}. You're ${status} budget.`
+      : `Your expenses for ${selectedRange} in category ${selectedCategory} is $${totalSpent.toFixed(2)}.`;
 
   return (
     <div className="container my-4">
@@ -60,7 +49,6 @@ export default function SpendingGraph({ expenses, showBudget, budgets }) {
           {budgetMessage}
         </div>
 
-        {/* Graph and its components*/}
         <label className="fw-semibold p-5" style={{ minWidth: 70 }}>
           Category:
         </label>
@@ -91,7 +79,6 @@ export default function SpendingGraph({ expenses, showBudget, budgets }) {
         </select>
       </div>
 
-      {/* Chart */}
       <ResponsiveContainer width="100%" height={400}>
         <LineChart data={chartData[selectedCategory] || []}>
           <CartesianGrid strokeDasharray="3 3" />
@@ -115,19 +102,19 @@ export default function SpendingGraph({ expenses, showBudget, budgets }) {
             name="Actual Expenses"
           />
 
-          {showBudget &&
-            budget !== null && ( // Checks if budget is null
-              <Line
-                type="monotone"
-                dataKey={() => budget} // Use the actual budget value
-                stroke="#8884d8"
-                name="Planned Budget"
-                strokeDasharray="5 5"
-                dot={false}
-              />
-            )}
+          {showBudget && budget !== null && (
+            <Line
+              type="monotone"
+              dataKey={() => budget}
+              stroke="#8884d8"
+              name="Planned Budget"
+              strokeDasharray="5 5"
+              dot={false}
+            />
+          )}
         </LineChart>
       </ResponsiveContainer>
+
       {showBudget && (
         <p
           style={{

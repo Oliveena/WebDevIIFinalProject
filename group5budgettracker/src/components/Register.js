@@ -32,7 +32,7 @@ export default function Register() {
 
     try {
       // Check if user already exists
-      const checkRes = await fetch(`http://localhost:3001/users?email=${email}`);
+      const checkRes = await fetch(`/users?email=${email}`);
       const existingUsers = await checkRes.json();
 
       if (existingUsers.length > 0) {
@@ -41,15 +41,11 @@ export default function Register() {
       }
 
       // Register new user
-      const res = await fetch('http://localhost:3001/users', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-        }),
-      });
+const res = await fetch('/users', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name, email, password }),
+});
 
       if (res.ok) {
         const newUser = await res.json();

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SpendingGraph from "./spendingTrackerComponents/SpendingGraph";
 import AddExpenseForm from "./spendingTrackerComponents/AddExpenseForm";
 import ListOfExpenses from "./spendingTrackerComponents/ListOfExpenses";

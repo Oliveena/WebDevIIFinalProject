@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useAuth } from '../context/AuthContext';
 import axios from "axios";
 import {
   Typography,
@@ -20,7 +21,15 @@ export default function Dashboard() {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("global");
-  const [username, setUsername] = useState("............");
+  const { user, isAuthenticated, logout } = useAuth();
+  const [username, setUsername] = useState(user?.name || "User");
+
+  useEffect(() => {
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  if (storedUser) {
+    setUsername(storedUser.name);
+  }
+}, []);
 
   const canadianKeywords = [
     "Canada", "Canadian", "Toronto", "Vancouver", "Montreal", "Bank of Canada", "BNC", "RBC", "Desjardins", "Ottawa", "Quebec", "Ontario", "Nova-Scotia", "Manitoba"
@@ -30,10 +39,8 @@ export default function Dashboard() {
     "Europe", "European", "ECB", "Germany", "France", "Spain", "Italy", "Eurozone", "EU", "Brussels", "Paris", "Berlin", "Madrid", "Euro"
   ];
 
-
-
-console.log("Original:", allNews.length);
-console.log("Filtered:", allNews.filter(isRelevant).length);
+// console.log("Original:", allNews.length);
+// console.log("Filtered:", allNews.filter(isRelevant).length);
 
   const keywordMatch = (keywords) => (item) =>
     keywords.some((word) =>
@@ -60,15 +67,18 @@ const bannedPhrases = [
     const fetchNews = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("https://www.alphavantage.co/query", {
-          params: {
-            function: "NEWS_SENTIMENT",
-            topics: "economy_fiscal",
-            apikey: apiKey,
-          },
-        });
+  const response = await axios.get("https://www.alphavantage.co/query", {
+    params: {
+      function: "NEWS_SENTIMENT",
+      topics: "economy_fiscal",
+      apikey: apiKey,
+    },
+  });
 
-        const allNews = response.data.feed || [];
+  const allNews = response.data.feed || [];
+
+  console.log("Original:", allNews.length); 
+  console.log("Filtered:", allNews.filter(isRelevant).length); 
 
         const filtered = {
   canada: allNews.filter(keywordMatch(canadianKeywords)).filter(isRelevant),
@@ -91,7 +101,7 @@ const bannedPhrases = [
   return (
     <Container maxWidth="lg" sx={{ mt: 5 }}>
       <Typography variant="h4" align="center" gutterBottom>
-        Hello {username}
+        Hello, {username}
       </Typography>
 
       <Typography variant="body1" align="center" gutterBottom>

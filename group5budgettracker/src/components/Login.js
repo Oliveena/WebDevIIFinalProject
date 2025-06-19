@@ -26,9 +26,9 @@ export default function Login() {
   const password = formData.get('password');
 
   try {
-    const res = await fetch(
-      `http://localhost:3001/users?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
-    );
+  const res = await fetch(
+  `/users?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
+
     const data = await res.json();
 
     console.log('Login data:', data);
