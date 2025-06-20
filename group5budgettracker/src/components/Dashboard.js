@@ -37,83 +37,83 @@ const [currentSavings, setCurrentSavings] = useState(0);
   }
 }, []);
 
-  const canadianKeywords = [
-    "Canada", "Canadian", "Toronto", "Vancouver", "Montreal", "Bank of Canada", "BNC", "RBC", "Desjardins", "Ottawa", "Quebec", "Ontario", "Nova-Scotia", "Manitoba"
-  ];
+//   const canadianKeywords = [
+//     "Canada", "Canadian", "Toronto", "Vancouver", "Montreal", "Bank of Canada", "BNC", "RBC", "Desjardins", "Ottawa", "Quebec", "Ontario", "Nova-Scotia", "Manitoba"
+//   ];
 
-  const europeanKeywords = [
-    "Europe", "European", "ECB", "Germany", "France", "Spain", "Italy", "Eurozone", "EU", "Brussels", "Paris", "Berlin", "Madrid", "Euro"
-  ];
+//   const europeanKeywords = [
+//     "Europe", "European", "ECB", "Germany", "France", "Spain", "Italy", "Eurozone", "EU", "Brussels", "Paris", "Berlin", "Madrid", "Euro"
+//   ];
 
-const keywordMatch = (keywords) => (item) => {
-  const text = (item.title + " " + item.summary).toLowerCase();
-  // "some" makes filter more lax
-  return keywords.some((word) =>
-    text.includes(word.toLowerCase())
-  );
-};
-
-
-const isRelevant = (item) => {
-  const content = (item.title + " " + (item.summary || "")).toLowerCase();
-  // some laxity allowed, news with >1 impertinent term are blocled
-  const bannedHits = bannedPhrases.filter(phrase => content.includes(phrase));
-  return bannedHits.length < 2;
-};
+// const keywordMatch = (keywords) => (item) => {
+//   const text = (item.title + " " + item.summary).toLowerCase();
+//   // "some" makes filter more lax
+//   return keywords.some((word) =>
+//     text.includes(word.toLowerCase())
+//   );
+// };
 
 
-  // unnecessary keywords (boilerplate or internal releases)
-const bannedPhrases = [
-  "transaction in own shares",
-  "the information contained herein is not for release",
-  "disclosure",
-  "form 6-k",
-  "regulatory news service",
-  "announcement pursuant",
-  "this announcement contains inside information",
-];
+// const isRelevant = (item) => {
+//   const content = (item.title + " " + (item.summary || "")).toLowerCase();
+//   // some laxity allowed, news with >1 impertinent term are blocled
+//   const bannedHits = bannedPhrases.filter(phrase => content.includes(phrase));
+//   return bannedHits.length < 2;
+// };
 
-  useEffect(() => {
-    const fetchNews = async () => {
-      setLoading(true);
-      try {
-  const response = await axios.get("https://www.alphavantage.co/query", {
-    params: {
-      function: "NEWS_SENTIMENT",
-      topics: "economy_fiscal",
-      apikey: apiKey,
-    },
-  });
 
-  console.log("API Response:", response.data);
+//   // unnecessary keywords (boilerplate or internal releases)
+// const bannedPhrases = [
+//   "transaction in own shares",
+//   "the information contained herein is not for release",
+//   "disclosure",
+//   "form 6-k",
+//   "regulatory news service",
+//   "announcement pursuant",
+//   "this announcement contains inside information",
+// ];
 
-  const allNews = response.data.feed || [];
+//   useEffect(() => {
+//     const fetchNews = async () => {
+//       setLoading(true);
+//       try {
+//   const response = await axios.get("https://www.alphavantage.co/query", {
+//     params: {
+//       function: "NEWS_SENTIMENT",
+//       topics: "economy_fiscal",
+//       apikey: apiKey,
+//     },
+//   });
 
-  console.log("Original:", allNews.length); 
-  console.log("Filtered:", allNews.filter(isRelevant).length); 
+//   console.log("API Response:", response.data);
 
-        const filtered = {
-  canada: allNews.filter(keywordMatch(canadianKeywords)).filter(isRelevant),
-  europe: allNews.filter(keywordMatch(europeanKeywords)).filter(isRelevant),
-  global: allNews.filter(isRelevant),
-}[filter];
+//   const allNews = response.data.feed || [];
 
-// debugging
-console.log("Filter:", filter);
-console.log("All News:", allNews.length);
-console.log("Filtered News:", filtered.length);
+//   console.log("Original:", allNews.length); 
+//   console.log("Filtered:", allNews.filter(isRelevant).length); 
 
-        setNews(filtered || []);
-      } catch (error) {
-        console.error("Error fetching news:", error);
-        setNews([]);
-      } finally {
-        setLoading(false);
-      }
-    };
+//         const filtered = {
+//   canada: allNews.filter(keywordMatch(canadianKeywords)).filter(isRelevant),
+//   europe: allNews.filter(keywordMatch(europeanKeywords)).filter(isRelevant),
+//   global: allNews.filter(isRelevant),
+// }[filter];
 
-    fetchNews();
-  }, [apiKey, filter]);
+// // debugging
+// console.log("Filter:", filter);
+// console.log("All News:", allNews.length);
+// console.log("Filtered News:", filtered.length);
+
+//         setNews(filtered || []);
+//       } catch (error) {
+//         console.error("Error fetching news:", error);
+//         setNews([]);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchNews();
+//   }, [apiKey, filter]);
 
   return (
     <Container maxWidth="lg" sx={{ mt: 5 }}>
@@ -153,6 +153,7 @@ console.log("Filtered News:", filtered.length);
       sx={{ minWidth: 200, mb: 2 }}
     />
   )}
+
 
   {/* Amount Inputs with Validation */}
   <Box sx={{ display: "flex", justifyContent: "center", gap: 2, mb: 2 }}>
@@ -195,102 +196,100 @@ console.log("Filtered News:", filtered.length);
     </Typography>
   )}
 </Box>
+{/* 
+<Box sx={{ mt: 6 }}>
+  <Typography variant="h5" gutterBottom>
+    Latest Financial News
+  </Typography>
 
+  <Box sx={{ mb: 2, textAlign: "center" }}>
+    <ToggleButtonGroup
+      value={filter}
+      exclusive
+      onChange={(e, newFilter) => {
+        if (newFilter) setFilter(newFilter);
+      }}
+      color="primary"
+    >
+      <ToggleButton value="canada">Canada</ToggleButton>
+      <ToggleButton value="europe">Europe</ToggleButton>
+      <ToggleButton value="global">Global</ToggleButton>
+    </ToggleButtonGroup>
+  </Box>
 
-      <Box sx={{ mt: 6 }}>
-        <Typography variant="h5" gutterBottom>
-          Latest Financial News
-        </Typography>
-
-        {/* Toggle between Global, Canada, and Europe */}
-        <Box sx={{ mb: 2, textAlign: "center" }}>
-          <ToggleButtonGroup
-            value={filter}
-            exclusive
-            onChange={(e, newFilter) => {
-              if (newFilter) setFilter(newFilter);
-            }}
-            color="primary"
-          >
-            <ToggleButton value="canada">Canada</ToggleButton>
-            <ToggleButton value="europe">Europe</ToggleButton>
-            <ToggleButton value="global">Global</ToggleButton>
-          </ToggleButtonGroup>
-        </Box>
-
-        {loading ? (
-          <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-            <CircularProgress />
-          </Box>
-        ) : news.length > 0 ? (
-          <Stack direction="row" spacing={2} sx={{ overflowX: "auto", pb: 2 }}>
-            {news.slice(0, 10).map((item) => (
-<Card
-  key={item.url}
-  sx={{
-    minWidth: 300,
-    maxWidth: 300,
-    maxHeight: 380,
-    display: "flex",
-    flexDirection: "column",
-    flexShrink: 0,
-    border: '2px solid #FFD700',
-    boxSizing: 'border-box',
-  }}
-  variant="outlined"
->
-  {item.banner_image && (
-    <CardMedia
-      component="img"
-      height="120"
-      image={item.banner_image}
-      alt="news thumbnail"
-    />
-  )}
-  <CardContent>
-    <Typography variant="h6" gutterBottom>
-      {item.title}
-    </Typography>
+  {loading ? (
+    <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+      <CircularProgress />
+    </Box>
+  ) : news.length > 0 ? (
+    <Stack direction="row" spacing={2} sx={{ overflowX: "auto", pb: 2 }}>
+      {news.slice(0, 10).map((item) => (
+        <Card
+          key={item.url}
+          sx={{
+            minWidth: 300,
+            maxWidth: 300,
+            maxHeight: 380,
+            display: "flex",
+            flexDirection: "column",
+            flexShrink: 0,
+            border: '2px solid #FFD700',
+            boxSizing: 'border-box',
+          }}
+          variant="outlined"
+        >
+          {item.banner_image && (
+            <CardMedia
+              component="img"
+              height="120"
+              image={item.banner_image}
+              alt="news thumbnail"
+            />
+          )}
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              {item.title}
+            </Typography>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{
+                height: 72,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                display: '-webkit-box',
+                WebkitLineClamp: 3,
+                WebkitBoxOrient: 'vertical',
+              }}
+            >
+              {item.summary}
+            </Typography>
+          </CardContent>
+          <CardActions sx={{ mt: "auto" }}>
+            <Button
+              size="small"
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Read More
+            </Button>
+          </CardActions>
+        </Card>
+      ))}
+    </Stack>
+  ) : (
     <Typography
       variant="body2"
       color="text.secondary"
-      sx={{
-        height: 72,
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        display: '-webkit-box',
-        WebkitLineClamp: 3,
-        WebkitBoxOrient: 'vertical',
-      }}
+      align="center"
+      mt={4}
     >
-      {item.summary}
+      No news available at this time.
     </Typography>
-  </CardContent>
-  <CardActions sx={{ mt: "auto" }}>
-    <Button
-      size="small"
-      href={item.url}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Read More
-    </Button>
-  </CardActions>
-</Card>
-
-            ))}
-          </Stack>
-        ) : (
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            align="center"
-            mt={4}
-          >
-            No news available at this time.
-          </Typography>
-        )}
-      </Box>
-    </Container>
-  );
+  )}
+</Box>
+*/}
+</Container>
+);
 }
