@@ -12,8 +12,13 @@ import {
 } from '@mui/material';
 import { FcGoogle } from 'react-icons/fc'; 
 import { useNavigate } from 'react-router-dom';
+import { useTheme } from '@mui/material/styles';
 
 export default function Register() {
+
+const theme = useTheme();
+const isDark = theme.palette.mode === 'dark';
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -78,15 +83,15 @@ const res = await fetch('/users', {
       p={4}
       boxShadow={3}
       borderRadius={2}
-      sx={{ backgroundColor: 'white' }}
-      className="rounded-2xl shadow-lg mb-32"
+      sx={{ backgroundColor: isDark ? '#121212' : 'white' }}
+      className={`rounded-2xl shadow-lg mb-32 ${isDark ? 'text-white' : 'text-black'}`} 
     >
       <Typography
         variant="h4"
         component="h1"
         mb={3}
         textAlign="center"
-        className="text-primary-700 font-bold"
+        className={isDark ? 'text-white font-bold' : 'text-primary-700 font-bold'}
       >
         Register
       </Typography>

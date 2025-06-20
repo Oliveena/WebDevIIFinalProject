@@ -7,6 +7,7 @@
     "@date-io/dayjs": "^3.2.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^7.1.2",
     "@mui/material": "^7.1.1",
     "@mui/x-data-grid": "^8.5.2",
     "@mui/x-date-pickers": "^8.5.2",
@@ -29,12 +30,12 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-  "start": "concurrently \"npm run server\" \"npm run client\"",
-  "client": "react-scripts start",
-  "server": "json-server --watch db.json --port 3001",
-  "build": "react-scripts build",
-  "test": "react-scripts test",
-  "eject": "react-scripts eject"
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "react-scripts start",
+    "server": "json-server --watch db.json --port 3001",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

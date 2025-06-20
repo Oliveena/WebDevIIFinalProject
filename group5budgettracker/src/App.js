@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import SpendingTracker from './components/SpendingTracker';
 import ActualBudget from './components/ActualBudget';
@@ -10,40 +10,42 @@ import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import BudgetPlanner from './components/BudgetPlanner';
 
-// MaterialUI date adapter
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
+import { ColorModeProvider } from './context/ColorModeContext'; // ✅ Import your context
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="App-header">
-        <Navbar />
-      </header>
+    <ColorModeProvider> {/* ✅ Wrap your app here */}
+      <div className="min-h-screen flex flex-col">
+        <header>
+          <Navbar />
+        </header>
 
-      <main className="flex-grow">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/features" element={<Features />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route
-            path="/spending"
-            element={
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <SpendingTracker />
-              </LocalizationProvider>
-            }
-          />
-          <Route path="/budget" element={<ActualBudget />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/planner" element={<BudgetPlanner />} />
-        </Routes>
-      </main>
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/features" element={<Features />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route
+              path="/spending"
+              element={
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <SpendingTracker />
+                </LocalizationProvider>
+              }
+            />
+            <Route path="/budget" element={<ActualBudget />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/planner" element={<BudgetPlanner />} />
+          </Routes>
+        </main>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </ColorModeProvider>
   );
 }
 

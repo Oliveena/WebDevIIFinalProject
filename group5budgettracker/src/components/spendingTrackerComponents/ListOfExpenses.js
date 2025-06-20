@@ -2,7 +2,48 @@ import * as React from 'react';
 import { useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { categoryColors, categoryIcons } from '../../constants/CategoryConfig';
+
+// Create a dark theme
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    background: {
+      default: '#121212',
+      paper: '#1e1e1e',
+    },
+    text: {
+      primary: '#fff',
+      secondary: '#bbb',
+    },
+  },
+  components: {
+    MuiDataGrid: {
+      styleOverrides: {
+        root: {
+          border: 'none',
+          color: '#fff',
+          backgroundColor: '#121212',
+        },
+        columnHeaders: {
+          backgroundColor: '#1e1e1e',
+          borderBottom: '1px solid #333',
+        },
+        row: {
+          borderBottom: '1px solid #333',
+          '&:hover': {
+            backgroundColor: '#333',
+          },
+        },
+        footerContainer: {
+          borderTop: '1px solid #333',
+          backgroundColor: '#1e1e1e',
+        },
+      },
+    },
+  },
+});
 
 export default function ListOfExpenses({ expenses: initialExpenses }) {
   const [expenses, setExpenses] = useState(initialExpenses);
@@ -107,19 +148,29 @@ export default function ListOfExpenses({ expenses: initialExpenses }) {
       filterable: false,
     },
   ];
-
-  return (
-    <div style={{ height: 600, width: '100%' }}>
-      <DataGrid
-        getRowId={(row) => row.id}
-        rows={rows}
-        columns={columns}
-        pageSize={10}
-        rowsPerPageOptions={[5, 10, 25, 50]}
-        pagination
-        disableSelectionOnClick
-        onCellEditCommit={handleEdit}
-      />
-    </div>
+return (
+    <ThemeProvider theme={darkTheme}>
+      <div style={{ height: 600, width: '100%', color: '#fff' }}>
+        <DataGrid
+          getRowId={(row) => row.id}
+          rows={rows}
+          columns={columns}
+          pageSize={10}
+          rowsPerPageOptions={[5, 10, 25, 50]}
+          pagination
+          disableSelectionOnClick
+          onCellEditCommit={handleEdit}
+          sx={{
+            border: 'none',
+            '.MuiDataGrid-cell, .MuiDataGrid-columnHeader': {
+              borderRight: '1px solid #333',
+            },
+            '.MuiDataGrid-columnHeaderTitle': {
+              color: '#bbb',
+            },
+          }}
+        />
+      </div>
+    </ThemeProvider>
   );
 }

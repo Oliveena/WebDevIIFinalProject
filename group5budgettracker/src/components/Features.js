@@ -1,8 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BarChart3, Shield, Smartphone, Zap, PieChart, Bell } from 'lucide-react';
+import { useTheme } from '@mui/material/styles';
 
 const Features = () => {
+
+  
+const theme = useTheme();
+const isDark = theme.palette.mode === 'dark';
+
+
   const features = [
     {
       icon: BarChart3,
@@ -43,16 +50,16 @@ const Features = () => {
   ];
 
   return (
-    <section className="py-20 lg:py-32 bg-white">
+    <section className={`py-20 lg:py-32 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+         <h2 className={`text-4xl lg:text-5xl font-bold mb-6 ${isDark ? 'text-white' : 'text-gray-900'}`}>
             Everything you need to
-            <span className="block text-gray-900">
+            <span className={`block ${isDark ? 'text-white' : 'text-gray-900'}`}>
               master your money
             </span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p>
             Powerful tools and insights designed to help you make better financial decisions and achieve your goals faster.
           </p>
         </div>
@@ -67,12 +74,12 @@ const Features = () => {
                 <feature.icon className="h-6 w-6" />
               </div>
               
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+              <h3 className={`text-xl font-semibold mb-3 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                 {feature.title}
               </h3>
               
-              <p className="text-gray-600 leading-relaxed">
-                {feature.description}
+              <p className={`leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                {feature.description}o
               </p>
             </div>
           ))}
@@ -82,7 +89,8 @@ const Features = () => {
         <div className="mt-20 text-center">
           <div className="bg-primary-700 rounded-3xl p-12 text-white">
             <h3 className="text-3xl font-bold mb-4">Ready to transform your finances?</h3>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+<p className={`text-xl max-w-3xl mx-auto ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+
               Join thousands of users who have already taken control of their financial future with Ledgerly.
             </p>
             <Link to="/register">

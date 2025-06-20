@@ -8,12 +8,16 @@ import {
   Divider,
   Stack,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 import { useAuth } from '../context/AuthContext';
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
+
+const theme = useTheme();
+const isDark = theme.palette.mode === 'dark';
 
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -58,15 +62,15 @@ export default function Login() {
       p={4}
       boxShadow={3}
       borderRadius={2}
-      sx={{ backgroundColor: 'white' }}
-      className="rounded-2xl shadow-lg mb-32"
+      sx={{ backgroundColor: isDark ? '#121212' : 'white' }}
+      className={`rounded-2xl shadow-lg mb-32 ${isDark ? 'text-white' : 'text-black'}`} 
     >
       <Typography
         variant="h4"
         component="h1"
         mb={3}
         textAlign="center"
-        className="text-primary-700 font-bold"
+        className={isDark ? 'text-white font-bold' : 'text-primary-700 font-bold'}
       >
         Login
       </Typography>

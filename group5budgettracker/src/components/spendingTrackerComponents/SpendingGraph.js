@@ -57,13 +57,14 @@ if (selectedCategory === "Everything") {
   )}.`;
 }
 
-
   if (loading) return <p>Loading chart...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="container my-4">
-      <div className="mb-3 d-flex align-items-center gap-3">
+  <div
+    className="container my-4"
+    style={{ backgroundColor: "#121212", color: "#eee", padding: "1rem", borderRadius: "8px" }}
+  >
         {/* Summary message */}
         <div className="text-center text-lg font-medium text-gray-700 mb-6">
           {budgetMessage}
@@ -98,15 +99,15 @@ if (selectedCategory === "Everything") {
             </option>
           ))}
         </select>
-      </div>
 
       {/* Chart */}
       <ResponsiveContainer width="100%" height={400}>
         <LineChart data={chartData[selectedCategory] || []}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip
+          <CartesianGrid stroke="#444" strokeDasharray="3 3" />
+<XAxis dataKey="name" stroke="#bbb" />
+<YAxis stroke="#bbb" />
+<Tooltip
+  contentStyle={{ backgroundColor: "#333", borderRadius: "4px", color: "#eee" }}
             formatter={(value, name) => {
               if (name === "Planned Budget") {
                 return [`$${value}`, "Planned Budget (gray dashed)"];
@@ -114,7 +115,7 @@ if (selectedCategory === "Everything") {
               return [`$${value}`, name];
             }}
           />
-          <Legend />
+          <Legend wrapperStyle={{ color: "#bbb" }} />
           <Line
             type="monotone"
             dataKey="value"

@@ -1,8 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Play, TrendingUp, Shield, Zap } from 'lucide-react';
+import { useTheme } from '@mui/material/styles';
 
 const Hero = () => {
+  
+const theme = useTheme();
+const isDark = theme.palette.mode === 'dark';
+
   return (
     <section className="relative bg-primary-700 overflow-hidden">
       

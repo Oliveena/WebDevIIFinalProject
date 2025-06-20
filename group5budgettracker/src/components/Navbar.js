@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { Wallet, Menu, X } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import ThemeToggle from "../constants/ThemeToggle"; 
 
 export default function Navbar() {
+  
   const [isOpen, setIsOpen] = useState(false);
   const [username, setUsername] = useState("");
-
-  const toggleMenu = () => setIsOpen(!isOpen);
-
   const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
+
+  const toggleMenu = () => setIsOpen(!isOpen);
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -59,6 +60,9 @@ export default function Navbar() {
                 <Link to="/register" className="hover:text-accent-500 transition">Register</Link>
               </>
             )}
+
+<ThemeToggle />
+
           </div>
 
           {/* Mobile menu button */}
@@ -74,7 +78,6 @@ export default function Navbar() {
       {isOpen && (
         <div className="md:hidden bg-primary-600 px-4 pb-4 space-y-2">
           <Link to="/" className="hover:text-accent-500 transition">Home</Link>
-
           {isAuthenticated && (
             <>
               <Link to="/dashboard" className="hover:text-accent-500 transition">Dashboard</Link>
@@ -82,7 +85,6 @@ export default function Navbar() {
               <Link to="/planner" className="hover:text-accent-500 transition">Planner</Link>
             </>
           )}
-
           {!isAuthenticated && (
             <>
               <Link to="/login" className="hover:text-accent-500 transition">Login</Link>

@@ -213,8 +213,8 @@ export default function SpendingTracker() {
   const [showBudget, setShowBudget] = useState(false);
 
   return (
-    <section className="py-20 lg:py-32 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section className="py-20 lg:py-32" style={{ backgroundColor: '#121212', color: '#eee' }}>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
@@ -234,7 +234,10 @@ export default function SpendingTracker() {
           <button
             onClick={() => setShowBudget((prev) => !prev)}
             className="flex items-center gap-2 px-4 py-2 text-white font-semibold rounded-md"
-            style={{ backgroundColor: showBudget ? "#2563eb" : "#6b7280" }}
+  style={{
+    backgroundColor: showBudget ? "#2563eb" : "#4b5563", // darker gray
+    color: "#eee",
+  }}
           >
             <FaChartLine />
             {showBudget ? "Hide Budget Comparison" : "Compare with Budget"}
