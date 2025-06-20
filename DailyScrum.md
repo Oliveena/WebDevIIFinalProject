@@ -48,7 +48,7 @@
     1) Yesterday: Individual work progresses.
     2) Today: 
     - Ana: (working on an unrelated React project)
-    - Dylan: ...
+    - Dylan: Budget summary (totals, etc)
     - Evan: MyHero, FeatureSection, Features
     - all 3: ...
     3) Any issues obstacles/challenges/need-help? 
@@ -61,7 +61,7 @@
     1) Yesterday: Pages visible, some graphs visible, mock data in place, home page requires testing. Agreement for systematic scrum q9.30am DIE for improved team cohesion.
     2) Today: 
     - Ana: finalize components + page for Actual Expenses, implement forms, begin implementing Tailwind
-    - Dylan: ...
+    - Dylan: Fix bug within the pie chart
     - Evan: Features, MyHero, FeatureSection 
     - all 3: ...
     3) Any issues obstacles/challenges/need-help? 
@@ -74,6 +74,7 @@
     1) Yesterday: Pages visible, some graphs visible, mock data in place, home page requires testing. Agreement for systematic scrum q9.30am DIE for improved team cohesion.
     2) Today: 
     - Ana: finalize components + page for Actual Expenses, Login/Registger mock UI
+    - Dylan: finish up budget page, start thinking how to connect it to spending page
     - Evan: Features, MyHero, FeatureSection 
     - all 3: ...
     3) Any issues obstacles/challenges/need-help? 
@@ -86,6 +87,7 @@
     1) Yesterday: Home and Spending Pages functional. Login/Registration mock done.
     2) Today: 
     - Ana: minor UI edits for Spending. Mock Dashboard.
+    - Dylan: small edits for budget, match categories using constant (CategoryConfig.js)
     - Evan: Login/Registration JSON mock server
     - all 3: ...
     3) Any issues obstacles/challenges/need-help? 
@@ -99,7 +101,7 @@
     2) Today: 
     - Ana: PowerPoint for presentation tomorrow
     - Evan: Login/Registration JSON mock server
-    - Dylan: Connecting the mock data from Budget to Spending pages, so that the budget set by user is displayed on the graph on the Spending page.
+    - Dylan: Fix saving budget, continue connecting the graphs
     - all 3: ...
     3) Any issues obstacles/challenges/need-help? 
     - Ana: 
@@ -112,7 +114,7 @@
     2) Today: 
     - Ana: Working on API call and dashboard
     - Evan: Working on nav links being fully functional
-    - Dylan: Working on linking Spending with budget
+    - Dylan: Connecting the mock data from Budget to Spending pages, so that the budget set by user is displayed on the graph on the Spending page.
     
     3) Any issues obstacles/challenges/need-help? 
     - Ana: 
