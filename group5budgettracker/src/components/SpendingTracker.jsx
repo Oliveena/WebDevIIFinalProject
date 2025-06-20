@@ -9,6 +9,23 @@ import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
 export default function SpendingTracker() {
+
+  // Inside SpendingTracker component, add these:
+
+const handleEditExpense = ({ id, field, value }) => {
+  setExpenses((prev) =>
+    prev.map((expense, index) =>
+      index === id
+        ? { ...expense, [field]: field === 'amount' ? Number(value) : value }
+        : expense
+    )
+  );
+};
+
+const handleDeleteExpense = (id) => {
+  setExpenses((prev) => prev.filter((_, index) => index !== id));
+};
+
   const theme = useTheme();
 
   const [budgets, setBudgets] = useState(null);
@@ -284,7 +301,13 @@ export default function SpendingTracker() {
           <h3 className="text-2xl font-semibold text-gray-900 mb-4 p-5">
             Recent Expenses
           </h3>
-          <ListOfExpenses expenses={expenses} categoryColors={categoryColors} />
+          <ListOfExpenses
+  expenses={expenses}
+  categoryColors={categoryColors}
+  onEdit={handleEditExpense}
+  onDelete={handleDeleteExpense}
+/>
+
         </div>
       </div>
     </section>

@@ -6,9 +6,21 @@ import { categoryColors, categoryIcons } from '../../constants/CategoryConfig';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
-export default function ListOfExpenses({ expenses: initialExpenses }) {
+export default function ListOfExpenses({ expenses: initialExpenses, onEdit, onDelete, categoryColors }) {
   const theme = useTheme();
-  const [expenses, setExpenses] = useState(initialExpenses);
+  const expenses = initialExpenses;
+
+  const handleEdit = ({ id, field, value }) => {
+    if (onEdit) {
+      onEdit({ id, field, value });
+    }
+  };
+
+  const handleDelete = (id) => {
+    if (onDelete) {
+      onDelete(id);
+    }
+  };
 
   const rows = expenses
     .sort((a, b) => new Date(b.date) - new Date(a.date))
@@ -17,23 +29,6 @@ export default function ListOfExpenses({ expenses: initialExpenses }) {
       ...expense,
       amount: Number(expense.amount),
     }));
-
-  const handleEdit = ({ id, field, value }) => {
-    setExpenses((prev) =>
-      prev.map((expense, index) =>
-        index === id
-          ? {
-              ...expense,
-              [field]: field === 'amount' ? Number(value) : value,
-            }
-          : expense
-      )
-    );
-  };
-
-  const handleDelete = (id) => {
-    setExpenses((prev) => prev.filter((_, index) => index !== id));
-  };
 
   const columns = [
     { field: 'date', headerName: 'Date', width: 120, editable: true },
