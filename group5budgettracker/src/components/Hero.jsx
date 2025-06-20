@@ -2,13 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Play, TrendingUp, Shield, Zap } from 'lucide-react';
 import { useTheme } from '@mui/material/styles';
+import { useState } from "react";
 
 const Hero = () => {
+
+  const [showDemo, setShowDemo] = useState(false);
   
 const theme = useTheme();
 const isDark = theme.palette.mode === 'dark';
 
   return (
+    <>
     <section className="relative bg-primary-700 overflow-hidden">
       
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
@@ -35,10 +39,14 @@ const isDark = theme.palette.mode === 'dark';
                 </button>
               </Link>
               
-              <button className="group border-2 border-white/30 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/10 backdrop-blur-sm transition-all duration-300 flex items-center justify-center">
-                <Play className="mr-2 h-5 w-5" />
-                Watch Demo
-              </button>
+              <button
+  onClick={() => setShowDemo(true)}
+  className="group border-2 border-white/30 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/10 backdrop-blur-sm transition-all duration-300 flex items-center justify-center"
+>
+  <Play className="mr-2 h-5 w-5" />
+  Watch Demo
+</button>
+
             </div>
 
             {/* Trust indicators */}
@@ -104,6 +112,30 @@ const isDark = theme.palette.mode === 'dark';
         </div>
       </div>
     </section>
+
+    {showDemo && (
+  <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4">
+    <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg max-w-3xl w-full overflow-hidden relative">
+      {/* Close button */}
+      <button
+        className="absolute top-2 right-2 text-gray-600 dark:text-white hover:text-red-500 text-xl font-bold"
+        onClick={() => setShowDemo(false)}
+      >
+        &times;
+      </button>
+
+      <video
+        src="/demo-video-placeholder.mp4"
+        controls
+        autoPlay
+        className="w-full h-auto rounded-b-xl"
+      >
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+)}
+</>
   );
 };
 
