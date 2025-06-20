@@ -5,8 +5,12 @@ import ListOfExpenses from "./spendingTrackerComponents/ListOfExpenses";
 import { categoryColors, categoryIcons } from "../constants/CategoryConfig";
 import { useNavigate } from "react-router-dom";
 import { FaChartLine, FaArrowRight } from "react-icons/fa";
+import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
 export default function SpendingTracker() {
+  const theme = useTheme();
+
   const [budgets, setBudgets] = useState(null);
 
   const [expenses, setExpenses] = useState([
@@ -213,16 +217,26 @@ export default function SpendingTracker() {
   const [showBudget, setShowBudget] = useState(false);
 
   return (
-<section className="py-20 lg:py-32" style={{ backgroundColor: '#121212', color: '#eee' }}>
+<section
+  className="py-20 lg:py-32"
+  style={{
+    backgroundColor: theme.palette.background.default,
+    color: theme.palette.text.primary,
+  }}
+>
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Track your
-            <span className="block text-primary-600">
-              spending effortlessly
-            </span>
-          </h2>
+         <Typography
+      variant="h4"
+      sx={{
+        color: theme.palette.text.primary,
+        fontWeight: 'bold',
+        mb: 2,
+      }}
+    >
+      Track your spending effortlessly
+    </Typography>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Visualize where your money goes and keep tabs on your spending
             habits over time.

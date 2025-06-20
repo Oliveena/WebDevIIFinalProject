@@ -12,10 +12,15 @@ import {
 import CategorySelect from "./CategorySelect";
 import useChartData from "./useChartData";
 import { categoryColors, categoryIcons } from "../../constants/CategoryConfig";
+import { useTheme } from "@mui/material/styles";
 
 const timeRanges = ["1 Week", "1 Month", "3 Months", "All"];
 
 export default function SpendingGraph({ expenses, showBudget, budgets }) {
+
+  const theme = useTheme();
+const isDarkMode = theme.palette.mode === "dark";
+
   // Add budgets prop
   const [selectedCategory, setSelectedCategory] = useState("Food");
   const [selectedRange, setSelectedRange] = useState("1 Week");
@@ -61,10 +66,15 @@ if (selectedCategory === "Everything") {
   if (error) return <p>Error: {error}</p>;
 
   return (
-  <div
-    className="container my-4"
-    style={{ backgroundColor: "#121212", color: "#eee", padding: "1rem", borderRadius: "8px" }}
-  >
+ <div
+  className="container my-4"
+  style={{
+    backgroundColor: theme.palette.background.paper,
+    color: theme.palette.text.primary,
+    padding: "1rem",
+    borderRadius: "8px"
+  }}
+>
         {/* Summary message */}
         <div className="text-center text-lg font-medium text-gray-700 mb-6">
           {budgetMessage}
@@ -103,19 +113,23 @@ if (selectedCategory === "Everything") {
       {/* Chart */}
       <ResponsiveContainer width="100%" height={400}>
         <LineChart data={chartData[selectedCategory] || []}>
-          <CartesianGrid stroke="#444" strokeDasharray="3 3" />
-<XAxis dataKey="name" stroke="#bbb" />
-<YAxis stroke="#bbb" />
+         <CartesianGrid stroke={theme.palette.divider} />
+<XAxis stroke={theme.palette.text.secondary} />
+<YAxis stroke={theme.palette.text.secondary} />
 <Tooltip
-  contentStyle={{ backgroundColor: "#333", borderRadius: "4px", color: "#eee" }}
-            formatter={(value, name) => {
-              if (name === "Planned Budget") {
-                return [`$${value}`, "Planned Budget (gray dashed)"];
-              }
-              return [`$${value}`, name];
-            }}
-          />
-          <Legend wrapperStyle={{ color: "#bbb" }} />
+  contentStyle={{
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: "4px",
+    color: theme.palette.text.primary,
+  }}
+  formatter={(value, name) => {
+    if (name === "Planned Budget") {
+      return [`$${value}`, "Planned Budget (gray dashed)"];
+    }
+    return [`$${value}`, name];
+  }}
+/>
+          <Legend wrapperStyle={{ color: theme.palette.text.secondary }} />
           <Line
             type="monotone"
             dataKey="value"
@@ -139,13 +153,14 @@ if (selectedCategory === "Everything") {
       </ResponsiveContainer>
       {showBudget && (
         <p
-          style={{
-            textAlign: "center",
-            fontSize: "0.9rem",
-            color: "#6b7280",
-            marginTop: "0.5rem",
-          }}
-        >
+  style={{
+    textAlign: "center",
+    fontSize: "0.9rem",
+    color: theme.palette.text.secondary,
+    marginTop: "0.5rem",
+  }}
+>
+
           <span style={{ borderBottom: "1px dashed #8884d8", marginRight: 6 }}>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           </span>

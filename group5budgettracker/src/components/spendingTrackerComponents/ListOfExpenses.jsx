@@ -2,86 +2,37 @@ import * as React from 'react';
 import { useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { categoryColors, categoryIcons } from '../../constants/CategoryConfig';
-
-// Create a dark theme
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-    background: {
-      default: '#121212',
-      paper: '#1e1e1e',
-    },
-    text: {
-      primary: '#fff',
-      secondary: '#bbb',
-    },
-  },
-  components: {
-    MuiDataGrid: {
-      styleOverrides: {
-        root: {
-          border: 'none',
-          color: '#fff',
-          backgroundColor: '#121212',
-        },
-        columnHeaders: {
-          backgroundColor: '#1e1e1e',
-          borderBottom: '1px solid #333',
-        },
-        row: {
-          borderBottom: '1px solid #333',
-          '&:hover': {
-            backgroundColor: '#333',
-          },
-        },
-        footerContainer: {
-          borderTop: '1px solid #333',
-          backgroundColor: '#1e1e1e',
-        },
-      },
-    },
-  },
-});
+import { useTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
 export default function ListOfExpenses({ expenses: initialExpenses }) {
+  const theme = useTheme();
   const [expenses, setExpenses] = useState(initialExpenses);
 
-  // Convert to DataGrid-compatible rows
   const rows = expenses
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .map((expense, index) => ({
-      id: index, // TODO: Replace with real unique ID from backend if available
+      id: index,
       ...expense,
-      amount: Number(expense.amount)
+      amount: Number(expense.amount),
     }));
 
- const handleEdit = ({ id, field, value }) => {
-  setExpenses((prev) =>
-    prev.map((expense, index) =>
-      index === id
-        ? {
-            ...expense,
-            [field]: field === 'amount' ? Number(value) : value,
-          }
-        : expense
-    )
-  );
-
-    // TODO: API call to update expense, e.g.
-    // fetch(`/api/expenses/${id}`, {
-    //   method: 'PUT',
-    //   body: JSON.stringify({ [field]: value }),
-    //   headers: { 'Content-Type': 'application/json' },
-    // });
+  const handleEdit = ({ id, field, value }) => {
+    setExpenses((prev) =>
+      prev.map((expense, index) =>
+        index === id
+          ? {
+              ...expense,
+              [field]: field === 'amount' ? Number(value) : value,
+            }
+          : expense
+      )
+    );
   };
 
   const handleDelete = (id) => {
     setExpenses((prev) => prev.filter((_, index) => index !== id));
-
-    // TODO: API call to delete expense
-    // fetch(`/api/expenses/${id}`, { method: 'DELETE' });
   };
 
   const columns = [
@@ -109,29 +60,28 @@ export default function ListOfExpenses({ expenses: initialExpenses }) {
         );
       },
     },
-{
-  field: 'amount',
-  headerName: 'Price',
-  width: 120,
-  editable: true, // enable editing
-  renderCell: (params) => {
-    if (params.value === null || params.value === undefined) return '';
-    return `$${Number(params.value).toFixed(2)}`;
-  },
-  renderEditCell: (params) => {
-    return (
-      <input
-        type="number"
-        step="0.01"
-        value={params.value}
-        onChange={(e) => {
-          params.api.setEditCellValue({ id: params.id, field: 'amount', value: e.target.value }, e);
-        }}
-        style={{ width: '100%', boxSizing: 'border-box' }}
-      />
-    );
-  },
-},
+    {
+      field: 'amount',
+      headerName: 'Price',
+      width: 120,
+      editable: true,
+      renderCell: (params) =>
+        params.value != null ? `$${Number(params.value).toFixed(2)}` : '',
+      renderEditCell: (params) => (
+        <input
+          type="number"
+          step="0.01"
+          value={params.value}
+          onChange={(e) =>
+            params.api.setEditCellValue(
+              { id: params.id, field: 'amount', value: e.target.value },
+              e
+            )
+          }
+          style={{ width: '100%', boxSizing: 'border-box' }}
+        />
+      ),
+    },
     {
       field: 'actions',
       headerName: 'Actions',
@@ -148,29 +98,37 @@ export default function ListOfExpenses({ expenses: initialExpenses }) {
       filterable: false,
     },
   ];
-return (
-    <ThemeProvider theme={darkTheme}>
-      <div style={{ height: 600, width: '100%', color: '#fff' }}>
-        <DataGrid
-          getRowId={(row) => row.id}
-          rows={rows}
-          columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[5, 10, 25, 50]}
-          pagination
-          disableSelectionOnClick
-          onCellEditCommit={handleEdit}
-          sx={{
-            border: 'none',
-            '.MuiDataGrid-cell, .MuiDataGrid-columnHeader': {
-              borderRight: '1px solid #333',
-            },
-            '.MuiDataGrid-columnHeaderTitle': {
-              color: '#bbb',
-            },
-          }}
-        />
-      </div>
-    </ThemeProvider>
+
+  return (
+    <div
+      style={{
+        height: 600,
+        width: '100%',
+        backgroundColor: theme.palette.background.default,
+        color: theme.palette.text.primary,
+      }}
+    >
+      <DataGrid
+        getRowId={(row) => row.id}
+        rows={rows}
+        columns={columns}
+        pageSize={10}
+        rowsPerPageOptions={[5, 10, 25, 50]}
+        pagination
+        disableSelectionOnClick
+        onCellEditCommit={handleEdit}
+        sx={{
+          border: 'none',
+          backgroundColor: theme.palette.background.paper,
+          color: theme.palette.text.primary,
+          '.MuiDataGrid-cell, .MuiDataGrid-columnHeader': {
+            borderRight: `1px solid ${theme.palette.divider}`,
+          },
+          '.MuiDataGrid-columnHeaderTitle': {
+            color: theme.palette.text.secondary,
+          },
+        }}
+      />
+    </div>
   );
 }
