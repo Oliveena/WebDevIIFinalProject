@@ -13,16 +13,14 @@ import BudgetPlanner from './components/BudgetPlanner';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
-import { ColorModeProvider } from './context/ColorModeContext'; // ✅ Import your context
-
+import { ColorModeProvider } from './context/ColorModeContext'; 
 function App() {
   return (
-    <ColorModeProvider> {/* ✅ Wrap your app here */}
+    <ColorModeProvider> 
       <div className="min-h-screen flex flex-col">
         <header>
           <Navbar />
         </header>
-
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -42,7 +40,6 @@ function App() {
             <Route path="/planner" element={<BudgetPlanner />} />
           </Routes>
         </main>
-
         <Footer />
       </div>
     </ColorModeProvider>
