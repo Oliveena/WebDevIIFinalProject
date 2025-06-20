@@ -1,8 +1,11 @@
 import BudgetPieChart from "./BudgetPieChart"
 import BudgetSummary from "./BudgetSummary";
 import { PieChart } from "lucide-react";
+import { useTheme } from "@mui/material/styles";
 
 const BudgetVisualization = ({ pieData, totalIncome, totalAllocated }) => {
+   const theme = useTheme();
+   
   return (
     <div className="bg-white rounded-xl border border-gray-200 p-6">
       <h3 className="text-xl font-semibold text-gray-900 mb-6 text-center">

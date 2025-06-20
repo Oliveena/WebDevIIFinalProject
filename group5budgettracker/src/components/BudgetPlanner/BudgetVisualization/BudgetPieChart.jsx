@@ -6,10 +6,13 @@ import {
   Tooltip as ChartTooltip,
   Legend,
 } from "recharts";
-
+import { useTheme } from "@mui/material/styles";
 import { categoryColors } from "../../../constants/CategoryConfig";
 
 const BudgetPieChart = ({ data }) => {
+
+   const theme = useTheme();
+
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
@@ -24,7 +27,15 @@ const BudgetPieChart = ({ data }) => {
   };
 
   return (
-    <div className="h-80">
+      <div
+      style={{
+        backgroundColor: theme.palette.background.paper,
+        color: theme.palette.text.primary,
+        padding: theme.spacing(2),
+        borderRadius: theme.shape.borderRadius,
+        height: 300
+      }}
+    >
       <ResponsiveContainer width="100%" height="100%">
         <RechartsPieChart>
           <Pie

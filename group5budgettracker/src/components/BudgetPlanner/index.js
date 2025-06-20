@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { PieChart as RechartsPieChart, Pie, Cell, ResponsiveContainer, Tooltip as ChartTooltip, Legend } from "recharts";
 import { PieChart, Info, ArrowRightCircle, Save, RefreshCw } from "lucide-react";
 import { categoryColors, categoryIcons } from '../../constants/CategoryConfig';
+import { useTheme } from "@mui/material/styles";
 
 import BudgetForm from "./BudgetForm/BudgetForm.jsx";
 import BudgetVisualization from "./BudgetVisualization/BudgetVisualization.jsx";
@@ -9,6 +10,9 @@ import ActionButtons from "./ActionButtons.jsx";
 import Tooltip from "./Tooltip/Tooltip.jsx";
 
 const BudgetPlanner = () => {
+
+    const theme = useTheme();
+
   const [totalIncome, setTotalIncome] = useState(0);
   const [categories, setCategories] = useState([
   {
@@ -107,7 +111,15 @@ const BudgetPlanner = () => {
   const totalAllocated = categories.reduce((sum, cat) => sum + cat.amount, 0);
 
   return (
-    <section className="py-12 lg:py-16 bg-white">
+    <section
+      style={{
+        backgroundColor: theme.palette.background.default,
+        color: theme.palette.text.primary,
+        minHeight: "100vh",
+        paddingTop: theme.spacing(12),
+        paddingBottom: theme.spacing(16),
+      }}
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">

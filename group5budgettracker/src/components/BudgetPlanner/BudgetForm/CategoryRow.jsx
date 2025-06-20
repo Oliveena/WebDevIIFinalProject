@@ -1,7 +1,11 @@
 import Tooltip from "../Tooltip/Tooltip.jsx";
 import { categoryColors } from "../../../constants/CategoryConfig";
+import { useTheme } from "@mui/material/styles";
 
 const CategoryRow = ({ category, onChange, getIconComponent }) => {
+
+   const theme = useTheme();
+   
   return (
     <tr className="hover:bg-gray-50">
       <td className="px-6 py-4 whitespace-nowrap">
