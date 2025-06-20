@@ -114,7 +114,16 @@ const isDark = theme.palette.mode === 'dark';
     </section>
 
     {showDemo && (
-  <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4">
+  <div
+  className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4"
+  onClick={(e) => {
+    // closing video modal if background is clicked
+    if (e.target === e.currentTarget) {
+      setShowDemo(false);
+    }
+  }}
+>
+
     <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg max-w-3xl w-full overflow-hidden relative">
       {/* Close button */}
       <button
@@ -125,6 +134,9 @@ const isDark = theme.palette.mode === 'dark';
       </button>
 
       <video
+      // key is necessary for remounting when shown, 
+      // resolves issue of video still playing after modal is closed 
+       key={showDemo} 
         src="/demo-video-placeholder.mp4"
         controls
         autoPlay
